@@ -1,0 +1,16 @@
+﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.MenuHangHoaVM>
+<div class="untree_co-section product-section before-footer-section">
+	<div class="container">
+		<div class="row">
+			@foreach (var item in Model)
+			{
+				<div class="col-12 col-md-4 col-lg-3 mb-2">
+					<a class="product-item" asp-controller="HangHoa" asp-action="BoPhan" asp-route-loaimay="@item.MaHh" class="product-item">
+						<img src="~/images/@item.Hinh" class="img-fluid product-thumbnail">
+						<h3 class="product-title">@item.TenHh</h3>
+					</a>
+				</div>
+			}
+		</div>
+	</div>
+</div>

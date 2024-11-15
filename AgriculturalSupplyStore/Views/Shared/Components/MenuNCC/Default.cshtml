@@ -1,0 +1,23 @@
+﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.MenuNCCVM>
+
+<!-- Start Why Choose Us Section -->
+<div @* class="why-choose-section" *@>
+	<div class="container">
+		<div class="row mt-5">
+			@foreach (var item in Model)
+			{
+				<div class="col-6 col-md-6 col-lg-3 mb-4">
+					<a asp-controller="HangHoa" asp-action="Company" asp-route-ncc="@item.MaNCC" class="card border-left-primary shadow h-100 px-3 text-decoration-none text-dark">
+						<div class="feature">
+							<div>
+								<img src="~/images/@item.Logo" alt="Image" class="imf-fluid img_logo">
+							</div>
+							<h3>@item.TenCongTy</h3>
+						</div>
+					</a>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+<!-- End Why Choose Us Section -->

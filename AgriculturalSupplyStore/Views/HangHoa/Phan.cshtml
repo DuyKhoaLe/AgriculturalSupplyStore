@@ -1,0 +1,26 @@
+﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.MenuPhanVM>
+
+<div class="untree_co-section product-section before-footer-section">
+    <div class="container">
+        <div class="row custom-parts ">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-12 text-center mb-3 mt-5">
+                    <h1 class=" nav-item active title-part">@item.TenPhan</h1>
+                </div>
+                <div class="col-md-5 mb-6">
+                    <div class="product-info">
+                        <a class="">
+                            <img src="~/images/@item.Hinh" class="img-fluid product-thumbnail">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 ms-3 mb-6">
+                    <div class="filtered-data">
+                        @await Component.InvokeAsync("HangHoa", new { maphan = item.MaPhan })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
