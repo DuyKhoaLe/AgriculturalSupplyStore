@@ -1,0 +1,52 @@
+﻿@model AgriculturalSupplyStore.ViewModels.ChiTietHHVM
+
+@{
+    ViewData["Title"] = "Chi Tiết hàng hóa";
+}
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+	<div class="container text-center py-5" style="max-width: 900px;">
+		<h4 class="text-white display-4 mb-4 wow fadeInDown " data-wow-delay="0.1s">Chi Tiết Hàng Hóa</h4>
+		<ol class="breadcrumb d-flex  justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+            <li class="breadcrumb-items_first"><a>Trang Chủ</a></li>
+			<li class="breadcrumb-items "><a>Phụ Tùng</a></li>
+			<li class="breadcrumb-items "><a>@Model.TenHh</a></li>
+		</ol>
+	</div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="text-center">
+            <img src="~/images/hanghoa_images/@Model.Hinh" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;" alt="@Model.TenHh">
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h1 class="display-5 text-primary">@Model.TenHh</h1>
+        <dt class="col-sm-4 text-secondary">Diểm đánh giá</dt>
+        <dd class="col-sm-8">@Model.DiemDanhGia</dd>
+        <p class="lead text-muted">@Model.MoTaNgan</p>
+        <hr class="my-4">
+
+        <dl class="row">
+            <dt class="col-sm-4 text-secondary">Số lượng</dt>
+            <dd class="col-sm-8">@Model.SoLuongTon</dd>
+
+            <dt class="col-sm-4 text-secondary">Loại</dt>
+            <dd class="col-sm-8">@Model.TenPhan</dd>
+
+            <dt class="col-sm-4 text-secondary">Công Ty</dt>
+            <dd class="col-sm-8">@Model.TenCongTy</dd>
+
+
+            <dt class="col-sm-8 mt-4">
+                <h3 class="text-danger font-weight-bold">đ @Model.DonGia</h3>
+            </dt>
+        </dl>
+        <div class="d-flex justify-content-start mt-2">
+            <a asp-controller="" asp-action="" asp-route-id="" class="btn btn-primary w-100 mt-3">Thêm vào giỏ hàng</a>
+        </div>
+    </div>
+</div>

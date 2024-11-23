@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.MenuHangHoaVM>
-<div class="untree_co-section product-section before-footer-section">
-	<div class="container">
-		<div class="row">
-			@foreach (var item in Model)
-			{
-				<div class="col-12 col-md-4 col-lg-3 mb-2">
-					<a class="product-item" asp-controller="HangHoa" asp-action="BoPhan" asp-route-loaimay="@item.MaHh" class="product-item">
-						<img src="~/images/@item.Hinh" class="img-fluid product-thumbnail">
-						<h3 class="product-title">@item.TenHh</h3>
-					</a>
-				</div>
-			}
-		</div>
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+	<div class="container text-center py-5" style="max-width: 900px;">
+		<h4 class="text-white display-4 mb-4 wow fadeInDown " data-wow-delay="0.1s">Tìm Kiếm</h4>
+		<ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+			<li class="breadcrumb-items "><a>Trang Chủ</a></li>
+			<li class="breadcrumb-items active text-primary"><a>Tìm Kiếm</a></li>
+		</ol>
 	</div>
 </div>
+<!-- Header End -->
+@await Html.PartialAsync("ProductItem", Model)

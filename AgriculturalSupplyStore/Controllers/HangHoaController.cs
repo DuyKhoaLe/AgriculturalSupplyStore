@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AgriculturalSupplyStore.Data;
 using AgriculturalSupplyStore.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgriculturalSupplyStore.Controllers
 {
@@ -25,8 +26,7 @@ namespace AgriculturalSupplyStore.Controllers
 			if (loaimay.HasValue)
 			{
                 loaiMays = loaiMays.Where(p => p.MaLoaiMay == loaimay.Value);
-			}
-
+			}			
 			var result = loaiMays.Select(p => new MenuKieuMayVM
 			{
 				MaKieuMay = p.MaKieuMay,
@@ -108,5 +108,36 @@ namespace AgriculturalSupplyStore.Controllers
 			});
 			return View(result);
 		}
+
+
+        //Trang chi tiết Hàng hóa
+        public IActionResult Detail(int id)
+        {
+
+			var data = db.HangHoas
+				.Include(p => p.MaPhanNavigation)
+                .Include(p => p.MaNccNavigation)
+                .SingleOrDefault(p => p.MaHh == id);
+			if (data == null)
+			{
+				TempData["Message"] = $"Không Tìm Thấy Sản Phẩm có mã {1}";
+				return Redirect("/404");
+			}
+			var result = new ChiTietHHVM
+			{
+				MaHh = data.MaHh,
+				TenHh = data.TenHh,
+				DonGia = data.DonGia ?? 0,
+				ChiTiet = data.MoTa ?? string.Empty,
+				DiemDanhGia = 5,
+				Hinh = data.Hinh ?? string.Empty,
+				MoTaNgan = data.MoTaDonVi,
+				TenPhan = data.MaPhanNavigation.TenPhan,
+				TenCongTy = data.MaNccNavigation.TenCongTy,
+				SoLuongTon = 10,
+
+			};		
+           return View(result);
+        }
     }
 }
