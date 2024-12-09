@@ -45,8 +45,14 @@
                 <h3 class="text-danger font-weight-bold">đ @Model.DonGia</h3>
             </dt>
         </dl>
+        <form asp-controller="GioHang" asp-action="AddToCart" asp-route-id="@Model.MaHh">
+            <div class="form-group">
+                <label for="quantity" class="control-label">Chọn Số Lượng:</label>
+                <input name="quantity" id="quantity" type="number" min="1" max="@Model.SoLuongTon" class="form-control" />
+            </div>
         <div class="d-flex justify-content-start mt-2">
-            <a asp-controller="" asp-action="" asp-route-id="" class="btn btn-primary w-100 mt-3">Thêm vào giỏ hàng</a>
+            <button  class="btn btn-primary w-100 mt-3">Thêm vào giỏ hàng</button>
         </div>
+        </form>
     </div>
 </div>

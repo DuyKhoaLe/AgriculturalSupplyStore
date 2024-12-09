@@ -5,6 +5,7 @@
         public int MaHh { get; set; }
 
         public string TenHh { get; set; }
+        public int SoLuong { get; set; }
         public string TenCongTy { get; set; }
 
         public string? MoTaNgan { get; set; }

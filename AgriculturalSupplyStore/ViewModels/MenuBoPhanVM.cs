@@ -6,7 +6,7 @@
 
 		public string? TenBoPhan { get; set; }
 
-		public string TenBoPhanAlias { get; set; }
+		public string TenBoPhanAlias { get; set; } 
 
 		public int? MaKieuMay { get; set; }
 		public string MoTa { get; set; }
