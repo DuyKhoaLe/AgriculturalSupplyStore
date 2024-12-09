@@ -1,0 +1,98 @@
+﻿@model AgriculturalSupplyStore.ViewModels.RegisterVM
+@{
+    ViewData["Title"] = "Đăng ký ";
+}
+
+<div class="untree_co-section">
+    <div class="container-fluid py-5">
+      @*   <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="border p-4 rounded" role="alert">
+                    Returning customer? <a href="#">Click here</a> to login
+                </div>
+            </div>
+        </div> *@
+        <div class="row">
+            <div class="col-md-6 mb-5 mb-md-0" >
+                <h2 class="h3 mb-3 text-black">Trang Đăng Ký</h2>
+                <form asp-controller="KhachHang" asp-action="Register">
+                <div class="p-3 p-lg-5 border bg-white">
+             @*        <div class="form-group">
+                        <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+                        <select id="c_country" class="form-control">
+                            <option value="1">Select a country</option>
+                            <option value="2">bangladesh</option>
+                            <option value="3">Algeria</option>
+                            <option value="4">Afghanistan</option>
+                            <option value="5">Ghana</option>
+                            <option value="6">Albania</option>
+                            <option value="7">Bahrain</option>
+                            <option value="8">Colombia</option>
+                            <option value="9">Dominican Republic</option>
+                        </select>
+                    </div> *@
+                  
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                                <label asp-for="@Model.MaKh" for="c_companyname" class="text-black"></label>
+                            <input asp-for="@Model.MaKh" type="text" class="form-control" id="c_companyname" name="c_companyname">
+                        <span asp-validation-for="@Model.MaKh" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                                <label asp-for="@Model.MatKhau" for="c_companyname" class="text-black">Mật Khẩu </label>
+                                <input asp-for="@Model.MatKhau" type="text" class="form-control" id="c_companyname" name="c_companyname">
+                                <span asp-validation-for="@Model.MatKhau" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                                <label asp-for="@Model.HoTen" for="c_companyname" class="text-black">Họ và Tên </label>
+                                <input asp-for="@Model.HoTen" type="text" class="form-control" id="c_companyname" name="c_companyname">
+                                <span asp-validation-for="@Model.HoTen" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                                <label asp-for="@Model.DiaChi" for="c_address" class="text-black">Địa Chỉ Giao Hàng <span class="text-danger">*</span></label>
+                                <input asp-for="@Model.DiaChi" type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address">
+                                <span asp-validation-for="@Model.DiaChi" class="text-danger"></span>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                                <label asp-for="@Model.Email" for="c_email_address" class="text-black">Địa Chỉ Email <span class="text-danger">*</span></label>
+                                <input asp-for="@Model.Email" type="text" class="form-control" id="c_email_address" name="c_email_address">
+                                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                                <label asp-for="@Model.DienThoai" for="c_phone" class="text-black">Số Điện Thoại <span class="text-danger">*</span></label>
+                                <input asp-for="@Model.DienThoai" type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number">
+                                <span asp-validation-for="@Model.DienThoai" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                                <label asp-for="@Model.GioiTinh" for="c_fname" class="text-black">Giới Tính <span class="text-danger">*</span></label>
+                                <input asp-for="@Model.GioiTinh" type="text" class="form-control" id="c_fname" name="c_fname">
+                        </div>
+                        <div class="col-md-6">
+                                <label asp-for="@Model.NgaySinh" for="c_lname" class="text-black">Ngày Sinh <span class="text-danger">*</span></label>
+                                <input asp-for="@Model.NgaySinh" type="text" class="form-control" id="c_lname" name="c_lname">
+                                <span asp-validation-for="@Model.NgaySinh" class="text-danger"></span>
+                        </div>
+                    </div>           
+                    <div class="form-group mt-2">
+                        <button class="btn btn-black btn-lg py-3 btn-block">Đăng Ký</button>
+                    </div>
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
