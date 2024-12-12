@@ -72,10 +72,18 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <span class="text-black">Số sản phẩm</span>
+                                <span class="text-black">Số tiền</span>
                             </div>
                             <div class="col-md-6 text-right">
-                                <strong class="text-black">@Model.Sum(p => p.SoLuong)</strong>
+                                <strong class="text-black">@Model.Sum(p => p.ThanhTien)</strong>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <span class="text-black">Phí</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <strong class="text-black">Miễn phí vận chuyển trong nước</strong>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -89,7 +97,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <a as class="btn btn-black btn-lg py-3 btn-block" asp-action="Checkout">Đặt Hàng</a>
+                                <a  class="btn btn-black btn-lg py-3 btn-block"  asp-action="Checkout">Đặt Hàng</a>
                             </div>
                         </div>
                     </div>

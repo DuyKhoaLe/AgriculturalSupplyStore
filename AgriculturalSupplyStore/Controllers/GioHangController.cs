@@ -2,6 +2,7 @@
 using AgriculturalSupplyStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using AgriculturalSupplyStore.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AgriculturalSupplyStore.Controllers
 {
@@ -60,6 +61,16 @@ namespace AgriculturalSupplyStore.Controllers
                 HttpContext.Session.Set(MySetting.CART_KEY, giohang);
             }
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult Checkout()
+        {            
+            if (Cart.Count == 0)
+            {
+                return Redirect("/");
+            }
+            return View(Cart);
         }
     }
 }

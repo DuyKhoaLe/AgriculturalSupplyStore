@@ -5,9 +5,11 @@
         <thead>
             <tr>
                 <th>STT</th>
+                <th>Hình</th>
                 <th>Tên hàng hóa</th>
                 <th>Mã số</th>
-                <th>Đơn giá</th>                         
+                <th>Đơn giá</th>
+                <th>Chi tiết</th>
             </tr>
         </thead>
         <tbody>
@@ -18,9 +20,11 @@
             {
                 <tr>
                     <td>@stt</td>
-                    <td><a asp-controller="HangHoa" asp-action="Detail" asp-route-id="@item.MaHh">@item.TenHh</a></td>
+                    <td><img src="~/images/hanghoa_images/@item.Hinh" alt="@item.TenHh" /></td>
+                    <td>@item.TenHh</td>
                     <td>@item.MaHh</td>
-                    <td>@item.DonGia</td>                                    
+                    <td>@item.DonGia</td>   
+                    <td><a asp-controller="HangHoa" asp-action="Detail" asp-route-id="@item.MaHh">Chi tiết</a></td>
                 </tr>
                 stt++;
             }
