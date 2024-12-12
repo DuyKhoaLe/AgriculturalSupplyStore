@@ -31,14 +31,14 @@
 			<div class="collapse navbar-collapse" id="navbarsFurni">
 				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 					<li>
-						<a class="nav-link" href="index.html">Trang Chủ </a>
+						<a class="nav-link" asp-controller="Home" asp-action="Index">Trang Chủ </a>
 					</li>
 					<li><a class="nav-link" href="">Giới Thiệu</a></li>
 					<li><a class="nav-link" href="">Máy YANMAR</a></li>
 					<li><a class="nav-link" href="">Máy KUBOTA</a></li>
 					<li><a class="nav-link" asp-controller="HangHoa" asp-action="Index">Phụ Tùng</a></li>
 					<li><a class="nav-link" href="">Liên Hệ</a></li>
-					<li><a class="nav-link" href="">Hướng Dẫn</a></li>
+					<li><a class="nav-link" asp-controller="KhachHang" asp-action="Register"><img src="">Đăng Ký</a></li>
 				</ul>
 				<form asp-controller="HangHoa" asp-action="Search" method="get" class=" d-flex ">
 					<div class="col-auto ">
@@ -51,7 +51,7 @@
 					</div>
 				</form>
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-					<li><a class="nav-link" asp-controller="KhachHang" asp-action="Register"><img src="~/images/user.svg"></a></li>
+					<li><a class="nav-link" asp-controller="KhachHang" asp-action="Login"><img src="~/images/user.svg"></a></li>					
 					@await Component.InvokeAsync("Cart")
 				</ul>
 			</div>
@@ -73,14 +73,14 @@
 			<div class="row">
 				<div class="col-lg-8">
 					<div class="subscription-form">
-						<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+						<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Gửi lời nhấn cho cửa hàng</span></h3>
 
 						<form action="#" class="row g-3">
 							<div class="col-auto">
-								<input type="text" class="form-control" placeholder="Enter your name">
+								<input type="text" class="form-control" placeholder="Tên của bạn">
 							</div>
 							<div class="col-auto">
-								<input type="email" class="form-control" placeholder="Enter your email">
+								<input type="email" class="form-control" placeholder="Email của bạn">
 							</div>
 							<div class="col-auto">
 								<button class="btn btn-primary">
@@ -95,8 +95,8 @@
 
 			<div class="row g-5 mb-5">
 				<div class="col-lg-4">
-					<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
-					<p class="mb-4">Donec facitis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
+					<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">ĐIỆP<span>.</span></a></div>
+					<p class="mb-4">Cửa hàng vật tư nông nghiệp Điệp. Chúng tôi luôn mang đến cho khách hàng của mình niềm tin và hài lòng. Các sản phẩm nông nghiệp đảm bảo mang đến sự hài lòng tối đa nhất cho khách hàng. Những người nông dân tuyệt vời.</p>
 
 					<ul class="list-unstyled custom-social">
 						<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
@@ -110,35 +110,35 @@
 					<div class="row links-wrap">
 						<div class="col-6 col-sm-6 col-md-3">
 							<ul class="list-unstyled">
-								<li><a href="#">About us</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Contact us</a></li>
+								<li><a href="#">Giới thiệu</a></li>
+								<li><a href="#">Dịch vụ</a></li>
+								<li><a href="#">Trang cá nhân</a></li>
+								<li><a href="#">Liên hệ</a></li>
 							</ul>
 						</div>
 
 						<div class="col-6 col-sm-6 col-md-3">
 							<ul class="list-unstyled">
-								<li><a href="#">Support</a></li>
-								<li><a href="#">Knowledge base</a></li>
-								<li><a href="#">Live chat</a></li>
+								<li><a href="#">Hỗ trợ</a></li>
+								<li><a href="#">Kiến thức cần có</a></li>
+								<li><a href="#">Liên lạc</a></li>
 							</ul>
 						</div>
 
 						<div class="col-6 col-sm-6 col-md-3">
 							<ul class="list-unstyled">
-								<li><a href="#">Jobs</a></li>
-								<li><a href="#">Our team</a></li>
-								<li><a href="#">Leadership</a></li>
-								<li><a href="#">Privacy Policy</a></li>
+								<li><a href="#">Công việc</a></li>
+								<li><a href="#">Nhóm vận hành</a></li>
+								<li><a href="#">Quản lý</a></li>
+								<li><a href="#">Chính sách bảo mật</a></li>
 							</ul>
 						</div>
 
 						<div class="col-6 col-sm-6 col-md-3">
 							<ul class="list-unstyled">
-								<li><a href="#">Nordic Chair</a></li>
-								<li><a href="#">Kruzo Aero</a></li>
-								<li><a href="#">Ergonomic Chair</a></li>
+								<li><a href="#">Máy cày nhập khẩu</a></li>
+								<li><a href="#">Phụ tùng chính hãng</a></li>
+								<li><a href="#">Dầu bôi trơn động cơ</a></li>
 							</ul>
 						</div>
 					</div>
@@ -150,7 +150,7 @@
 				<div class="row pt-4">
 					<div class="col-lg-6">
 						<p class="mb-2 text-center text-lg-start">
-							Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>  <!-- License information: https://untree.co/license/ -->
+							Copyright &copy;<script>document.write(new Date().getFullYear());</script><a href="https://untree.co"></a>  <a hreff="https://themewagon.com"></a>  <!-- License information: https://untree.co/license/ -->
 						</p>
 					</div>
 

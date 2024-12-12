@@ -239,7 +239,7 @@ h1.title-part {
         top: 0px;
         right: 0px;
         z-index: 2;
-        max-width: 780px;
+        max-width: 370px;
         left: -20px;
     }
 
@@ -594,7 +594,7 @@ h1.title-part {
                 -ms-grid-column: 19;
                 -ms-grid-column-span: 27;
                 grid-column: 19 / span 27;
-                -ms-grid-row: 1;
+                -ms-grid-row: 1;                
                 -ms-grid-row-span: 5;
                 grid-row: 1 / span 5;
                 padding-left: 20px;
@@ -607,7 +607,7 @@ h1.title-part {
                 -ms-grid-row: 6;
                 -ms-grid-row-span: 27;
                 grid-row: 6 / span 27;
-                padding-top: 20px;
+                padding-top: 20px;              
             }
 
 .custom-list {
@@ -713,7 +713,7 @@ h1.title-part {
 }
 
     .testimonial-slider-wrap .item .testimonial-block .author-info .author-pic img {
-        max-width: 80px;
+        max-width: 400px;
         border-radius: 50%;
     }
 

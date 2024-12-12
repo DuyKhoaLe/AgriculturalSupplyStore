@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.MenuHangHoaVM>
 
 <div class="">
-    <table class="table table-striped ">
-        <thead class="">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <th>STT</th>        
+                <th>STT</th>
                 <th>Tên hàng hóa</th>
                 <th>Mã số</th>
-                <th>Đơn giá</th>
-                <th>Đặt hàng</th>
+                <th>Đơn giá</th>                         
             </tr>
         </thead>
         <tbody>
@@ -18,15 +17,13 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@stt</td>                 
-                    <td>@item.TenHh</td>
-                     <td>@item.MaHh</td>
-                    <td>@item.DonGia</td>
-                    <td></td>
+                    <td>@stt</td>
+                    <td><a asp-controller="HangHoa" asp-action="Detail" asp-route-id="@item.MaHh">@item.TenHh</a></td>
+                    <td>@item.MaHh</td>
+                    <td>@item.DonGia</td>                                    
                 </tr>
                 stt++;
             }
         </tbody>
     </table>
 </div>
-
