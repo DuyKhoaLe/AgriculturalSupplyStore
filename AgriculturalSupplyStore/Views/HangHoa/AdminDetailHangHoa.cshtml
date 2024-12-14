@@ -1,0 +1,60 @@
+﻿@model AgriculturalSupplyStore.ViewModels.ChiTietHHVM
+@{
+    ViewData["Title"] = Model.TenHh;
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="container row">
+        <div class="col-md-6">
+            <div class="text-center">
+                <img src="~/images/hanghoa_images/@Model.Hinh" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;" alt="@Model.TenHh">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h1 class="display-5 text-primary">@Model.TenHh</h1>
+            <hr class="my-4">
+
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th class="text-secondary">Mã hàng hóa</th>
+                        <td>@Model.MaHh</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Điểm đánh giá</th>
+                        <td>@Model.DiemDanhGia</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Mô tả ngắn</th>
+                        <td>@Model.MoTaNgan</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Loại sản phẩm</th>
+                        <td>@Model.TenPhan (@Model.MaPhan)</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Công ty</th>
+                        <td>@Model.TenCongTy (@Model.MaNcc)</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Số lượng tồn</th>
+                        <td>@Model.SoLuongTon</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Chi tiết</th>
+                        <td>@Model.ChiTiet</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Giá</th>
+                        <td>                            
+                                @Model.DonGia                           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

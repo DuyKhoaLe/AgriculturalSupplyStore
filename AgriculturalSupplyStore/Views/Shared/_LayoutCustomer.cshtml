@@ -37,8 +37,8 @@
 					<li><a class="nav-link" href="">Máy YANMAR</a></li>
 					<li><a class="nav-link" href="">Máy KUBOTA</a></li>
 					<li><a class="nav-link" asp-controller="HangHoa" asp-action="Index">Phụ Tùng</a></li>
-					<li><a class="nav-link" href="">Liên Hệ</a></li>
-					<li><a class="nav-link" asp-controller="KhachHang" asp-action="Register"><img src="">Đăng Ký</a></li>
+					<li><a class="nav-link" asp-controller="Home" asp-action="Contact">Liên Hệ</a></li>
+					<li><a class="nav-link" id="DaDangNhap" asp-controller="KhachHang" asp-action="Register"><img src="">Đăng Ký</a></li>
 				</ul>
 				<form asp-controller="HangHoa" asp-action="Search" method="get" class=" d-flex ">
 					<div class="col-auto ">
@@ -167,11 +167,13 @@
 		</div>
 	</footer>
 	<!-- End Footer Section -->
-
-
+	<!-- Thêm jQuery từ CDN của jQuery -->
+	<!-- Thêm jQuery từ CDN của Google -->
+	<!-- Tải jQuery từ CDN -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="~/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/tiny-slider.js"></script>
 	<script src="~/js/custom.js"></script>
-	@RenderSection("Script", required: false)
+	@RenderSection("Scripts", required: false)
 </body>
 </html>

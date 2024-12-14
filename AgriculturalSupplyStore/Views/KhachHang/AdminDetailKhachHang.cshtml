@@ -1,0 +1,65 @@
+﻿@model AgriculturalSupplyStore.ViewModels.KhachHangVM
+@{
+    ViewData["Title"] = Model.HoTen;
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="container row">
+        <div class="col-md-6">
+            <div class="text-center">
+                <img src="~/images/khachhang_images/@Model.Hinh" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;" alt="@Model.HoTen">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h1 class="display-5 text-primary">@Model.HoTen</h1>
+            <hr class="my-4">
+
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th class="text-secondary">Mã khách hàng</th>
+                        <td>@Model.MaKh</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Mật khẩu</th>
+                        <td>@Model.MatKhau</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Giới tính</th>
+                        <td>@Model.GioiTinh</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Ngày sinh</th>
+                        <td>@Model.NgaySinh</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Địa chỉ</th>
+                        <td>@Model.DiaChi</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Điện thoại</th>
+                        <td>@Model.DienThoai</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Email</th>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Hiệu lực</th>
+                        <td>@Model.HieuLuc</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Vai trò</th>
+                        <td>
+                            @Model.VaiTro
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

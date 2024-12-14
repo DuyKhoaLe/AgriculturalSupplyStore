@@ -93,7 +93,7 @@ namespace AgriculturalSupplyStore.Controllers
                             {
                                 new Claim(ClaimTypes.Email, khachHang.Email),
                                  new Claim(ClaimTypes.Name, khachHang.HoTen),
-                                  new Claim("CustomerID", khachHang.MaKh),
+                                  new Claim(MySetting.CLAIM_CUSTOMERID, khachHang.MaKh),
 
                                   new Claim(ClaimTypes.Role, "Customer")
                             };
@@ -129,5 +129,68 @@ namespace AgriculturalSupplyStore.Controllers
             await HttpContext.SignOutAsync();
             return Redirect("/");      
         }
+
+        /// AdminKhachHang sẽ hiển thị toàn bộ thông tin bảng khách hàng
+        public IActionResult AdminKhachHang()
+        {
+            var data = db.KhachHangs.Select(p => new KhachHangVM
+            {
+                MaKh = p.MaKh,
+                HoTen = p.HoTen,
+                MatKhau = p.MatKhau,
+                GioiTinh = p.GioiTinh,
+                NgaySinh = p.NgaySinh,
+                DiaChi = p.DiaChi,
+                Email = p.Email,
+                Hinh = p.Hinh,
+                HieuLuc = p.HieuLuc,
+                VaiTro = p.VaiTro,
+            });
+
+            return View(data);
+        }
+
+        //AdminDeleteKhachHang là Xóa Tài khoản khách hành
+        [HttpPost, ActionName("AdminDeleteKhachHang")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdminDeleteKhachHang(string makh)
+        {
+            var user = await db.KhachHangs.FindAsync(makh);
+            if (user != null)
+            {
+                db.KhachHangs.Remove(user);
+            }
+
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(AdminKhachHang));
+        }
+
+        //AdminDetailKhachHang là chi tiết khách hàng
+        public IActionResult AdminDetailKhachHang(string? makh)
+        {
+            var data = db.KhachHangs
+                .SingleOrDefault(p => p.MaKh == makh);
+            if (data == null)
+            {
+                TempData["Message"] = $"Không tìm thấy Nhà cung cấp có mã {makh}";
+                return Redirect("/Found/404");
+            }
+            var result = new KhachHangVM
+            {
+                MaKh = data.MaKh,
+                HoTen = data.HoTen,
+                MatKhau = data.MatKhau,
+                GioiTinh = data.GioiTinh,
+                NgaySinh = data.NgaySinh,
+                DienThoai = data.DienThoai,
+                DiaChi = data.DiaChi,
+                Email = data.Email,
+                Hinh = data.Hinh,
+                HieuLuc = data.HieuLuc,
+                VaiTro = data.VaiTro,
+            };
+            return View(result);
+        }
+
     }
 }

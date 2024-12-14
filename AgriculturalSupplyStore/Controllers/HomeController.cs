@@ -35,5 +35,22 @@ namespace AgriculturalSupplyStore.Controllers
 
             return View();
         }
+        [Route("/Found/404")]
+        public IActionResult PageNotFoundAM()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult AdminIndex()
+		{
+			return View();
+		}
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
     }
 }

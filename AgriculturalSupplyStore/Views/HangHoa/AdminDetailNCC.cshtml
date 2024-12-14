@@ -1,0 +1,52 @@
+﻿@model AgriculturalSupplyStore.ViewModels.MenuNCCVM
+@{
+    ViewData["Title"] = Model.TenCongTy;
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="container row">
+        <div class="col-md-6">
+            <div class="text-center">
+                <img src="~/images/nhacungcap_images/@Model.Logo" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;" alt="@Model.Logo">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h1 class="display-5 text-primary">@Model.TenCongTy</h1>
+            <hr class="my-4">
+
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th class="text-secondary">Mã nhà cung cấp</th>
+                        <td>@Model.MaNCC</td>
+                    </tr>                
+                    <tr>
+                        <th class="text-secondary">Người liên lạc</th>
+                        <td>@Model.NguoiLienLac</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Email</th>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Điện thoại</th>
+                        <td>@Model.DienThoai</td>
+                    </tr>                
+                    <tr>
+                        <th class="text-secondary">Địa chỉ</th>
+                        <td>@Model.DiaChi</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Mô tả</th>
+                        <td>
+                            @Model.MoTa
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

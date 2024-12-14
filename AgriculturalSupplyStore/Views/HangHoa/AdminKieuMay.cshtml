@@ -1,0 +1,77 @@
+﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.MenuKieuMayVM>
+@{
+    ViewData["Title"] = "Danh Sách Kiểu Máy";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="content">
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Danh Sách Kiểu Máy</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="./">Trang Chủ</a></li>
+                <li class="breadcrumb-item">Kiểu Máy</li>
+                <li class="breadcrumb-item active" aria-current="page">Danh Sách Kiểu Máy</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 mb-4">
+                <!-- Simple Tables -->
+                <div class="card">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary"><a asp-controller="HangHoa" asp-action="AdminCreateKieuMay">Thêm Kiểu Máy</a></h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Stt</th>
+                                    <th>Hình</th>
+                                    <th>Mã Kiểu Máy</th>
+                                    <th>Tên Kiểu Máy</th>
+                                    <th>Tên Kiểu Máy Alias</th>
+                                    <th>Mô Tả </th>
+                                    <th>Tác Vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int stt = 1;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@stt</td>
+                                        <td><img src="~/images/kieumay_images/@item.Hinh" alt="@item.TenKieuMay" style=" max-width: 100px; max-height: 100px;" /></td>
+                                        <td>@item.MaKieuMay</td>
+                                        <td>@item.TenKieuMay</td>
+                                        <td>@item.TenKieuAlias</td>
+                                        <td>@item.MoTa</td>
+                                        <td class="d-flex justify-content-center align-items-center w-100 gap-2">
+                                            <a asp-action="AdminEditLoaiMay" asp-route-makm="@item.MaKieuMay" class="btn btn-sm btn-primary" style="margin-right: 5px;">Sửa</a>
+                                            <form asp-action="AdminDeleteLoaiMay" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa kiểu máy @item.TenKieuMay?');">
+                                                <input type="hidden" name="makm" value="@item.MaKieuMay" />
+                                                <button type="submit" class="btn btn-danger btn-circle btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    stt++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+        </div>
+        <!--Row-->
+    </div>
+    <!---Container Fluid-->
+</div>
+
+

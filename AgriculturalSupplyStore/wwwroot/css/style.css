@@ -18,11 +18,11 @@ body {
     color: #6a6a6a;
     font-size: 14px;
     background-color: #eff2f1;
-    padding-top: 80px; 
+    padding-top: 80px;
 }
 
-.Content{
-    padding-bottom:200px;
+.Content {
+    padding-bottom: 100px;
 }
 
 a {
@@ -285,6 +285,13 @@ h1.title-part {
     }
 }
 
+.centered-title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
 .btn {
     font-weight: 600;
     padding: 12px 30px;
@@ -466,8 +473,8 @@ h1.title-part {
     .product-section .product-item:hover .icon-cross {
         bottom: 0;
         opacity: 1;
-        visibility: visible;   
-        margin-bottom:10px;
+        visibility: visible;
+        margin-bottom: 10px;
     }
 
 
