@@ -32,7 +32,7 @@
                                     <th>Hình</th>
                                     <th>Mã Hàng Hóa</th>
                                     <th>Tên Hàng Hóa</th>
-                                    <th>Mã Phần</th>
+                                    <th>Mã Vị Trí</th>
                                     <th>Mô Tả Đơn Vị</th>
                                     <th>Đơn Giá</th>
                                     <th>Tác Vụ</th>
@@ -46,11 +46,11 @@
             {
                                 <tr>
                                         <td>@stt</td>
-                                        <td><img src="~/images/hanghoa_images/@item.Hinh" alt="@item.TenHh" style=" max-width: 100px; max-height: 100px;"  /></td>
+                                        <td><img src="~/images/hanghoa_images/@item.Hinh" alt="@item.TenHh" style=" max-width: 50px; max-height: 100px;" class="img-fluid rounded shadow-sm" /></td>
                                         <td>@item.MaHh</td>
                                         <td>@item.TenHh</td>
                                         <td>@item.MaPhan</td>
-                                        <td>@item.MoTaDonVi</td>
+                                        <td>@item.MoTaNgan</td>
                                         <td>@item.DonGia</td>
                                     <td><a asp-action="AdminDetailHangHoa" asp-route-mahh="@item.MaHh" class="btn btn-sm btn-primary">Chi tiết</a>
                                             <form asp-action="AdminDeleteHangHoa" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm @item.TenHh?');">

@@ -16,7 +16,7 @@ namespace AgriculturalSupplyStore.ViewComponents
 			_dbContext = dbContext;
 		}
 
-		public async Task<IViewComponentResult> InvokeAsync(int maphan)
+		public async Task<IViewComponentResult> InvokeAsync(string maphan)
 		{
 			var hangHoas = await _dbContext.HangHoas
 				.Where(p => p.MaPhan == maphan) 
@@ -26,13 +26,13 @@ namespace AgriculturalSupplyStore.ViewComponents
 					TenHh = p.TenHh,
 					TenAlias = p.TenAlias,
 					MaPhan = p.MaPhan,
-					MoTaDonVi = p.MoTaDonVi,
+					MoTaNgan = p.MoTaDonVi,
 					DonGia = p.DonGia,
 					Hinh = p.Hinh,
 					NgaySx = p.NgaySx,
 					GiamGia = p.GiamGia,
 					SoLanXem = p.SoLanXem,
-					MoTa = p.MoTa,
+					ChiTiet = p.MoTa,
 					MaNcc = p.MaNcc
 				})
 				.ToListAsync(); 

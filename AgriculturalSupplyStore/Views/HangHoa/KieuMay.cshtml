@@ -1,12 +1,16 @@
-﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.MenuKieuMayVM>
+﻿    @model IEnumerable<AgriculturalSupplyStore.ViewModels.MenuKieuMayVM>
+
+@{
+    ViewData["Title"] = @ViewBag.Name;
+}
 <!-- Header Start -->
 <div class="container-fluid bg-breadcrumb">
     <div class="container text-center py-5" style="max-width: 900px;">
-        <h4 class="text-white display-4 mb-4 wow fadeInDown " data-wow-delay="0.1s"></h4>
+        <h4 class="text-white display-4 mb-4 wow fadeInDown " data-wow-delay="0.1s">@ViewBag.Name</h4>
         <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
             <li class="breadcrumb-items_first "><a>Trang Chủ</a></li>
             <li class="breadcrumb-items "><a>Phụ Tùng</a></li>
-            <li class="breadcrumb-items"><a></a></li>
+            <li class="breadcrumb-items"><a>@ViewBag.Name</a></li>
         </ol>
     </div>
 </div>

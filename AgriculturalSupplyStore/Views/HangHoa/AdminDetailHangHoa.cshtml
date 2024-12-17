@@ -6,22 +6,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="d-flex justify-content-center align-items-center mt-5">
-    <div class="container row">
-        <div class="col-md-6">
-            <div class="text-center">
-                <img src="~/images/hanghoa_images/@Model.Hinh" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;" alt="@Model.TenHh">
+    <div class="container row" style="display: flex; max-width: 100% !important;">
+        <div class="" style=" width: 30%;">
+            <div class="text-center px-2">
+                <img src="~/images/hanghoa_images/@Model.Hinh" class="img-fluid rounded shadow-sm " style="max-width: 100%; height: auto;" alt="@Model.TenHh">
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="" style=" width: 70%;">
             <h1 class="display-5 text-primary">@Model.TenHh</h1>
             <hr class="my-4">
 
             <table class="table table-bordered">
                 <tbody>
                     <tr>
+                        <th class="text-secondary">Tên Alias</th>
+                        <td>@Model.TenAlias</td>
+                    </tr>
+                    <tr>
                         <th class="text-secondary">Mã hàng hóa</th>
                         <td>@Model.MaHh</td>
+                    </tr>
+                    <tr>
+                        <th class="text-secondary">Tên công ty</th>
+                        <td>@Model.TenCongTy</td>
                     </tr>
                     <tr>
                         <th class="text-secondary">Điểm đánh giá</th>
@@ -30,6 +38,10 @@
                     <tr>
                         <th class="text-secondary">Mô tả ngắn</th>
                         <td>@Model.MoTaNgan</td>
+                    </tr>                   
+                    <tr>
+                        <th class="text-secondary">Ngày sản xuất</th>
+                        <td>@Model.NgaySx</td>
                     </tr>
                     <tr>
                         <th class="text-secondary">Loại sản phẩm</th>

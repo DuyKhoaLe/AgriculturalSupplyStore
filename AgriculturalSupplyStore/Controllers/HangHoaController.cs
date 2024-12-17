@@ -6,15 +6,19 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using AgriculturalSupplyStore.Helpers;
+using AutoMapper;
 
 namespace AgriculturalSupplyStore.Controllers
 {
     public class HangHoaController : Controller
     {
         private readonly AgriculturalsupplystoreDbContext db;
-        public HangHoaController(AgriculturalsupplystoreDbContext context)
+        private readonly IMapper _mapper;
+        public HangHoaController(AgriculturalsupplystoreDbContext context, IMapper mapper)
         {
             db = context;
+            _mapper = mapper;
         }
         public IActionResult Index(string MTMay)
         {
@@ -51,16 +55,60 @@ namespace AgriculturalSupplyStore.Controllers
             return RedirectToAction(nameof(AdminLoaiMay));
         }
 
-        //Kiểu Máy là các sản phẩm khác nhau về phiên bản nhưng giống về chức năng. Tìm kiếm theo mã 2
-        public IActionResult KieuMay(int? loaimay)
+        //AdminCreateLoaiMay là tạo loại máy 1
+        [HttpGet]
+        public IActionResult AdminCreateLoaiMay()
         {
+            return View();
+        }
 
-            var loaiMays = db.KieuMays.AsQueryable();
-            if (loaimay.HasValue)
+        // POST: Tạo nhà cung cấp
+        [HttpPost]
+        public IActionResult AdminCreateLoaiMay(MenuLoaiMayVM model, IFormFile Hinh)
+        {
+            if (ModelState.IsValid)
             {
-                loaiMays = loaiMays.Where(p => p.MaLoaiMay == loaimay.Value);
+                try
+                {
+                    var loaiMay = _mapper.Map<LoaiMay>(model);
+
+                    if (Hinh != null)
+                    {
+                        loaiMay.Hinh = MyUtil.UploadHinh(Hinh, "loaimay_images");
+                    }
+                    db.Add(loaiMay);
+                    db.SaveChanges();
+                    return RedirectToAction("AdminLoaiMay", "HangHoa");
+
+                }
+                catch (Exception ex)
+                {
+                    var mess = $"{ex.Message} shh";
+                }
             }
-            var result = loaiMays.Select(p => new MenuKieuMayVM
+            return View();
+        }
+
+        //Kiểu Máy là các sản phẩm khác nhau về phiên bản nhưng giống về chức năng. Tìm kiếm theo mã 2
+        public IActionResult KieuMay(string? loaimay)
+        {           
+            var kieuMays = db.KieuMays.AsQueryable();
+            if (loaimay != null)
+            {
+                kieuMays = kieuMays.Where(p => p.MaLoaiMay == loaimay);
+            }
+            if (loaimay != null)
+            {
+                kieuMays = kieuMays.Where(p => p.MaLoaiMay == loaimay);
+             
+                var loaiMayName = db.LoaiMays
+                                    .Where(lm => lm.MaLoaiMay == loaimay)
+                                    .Select(lm => lm.TenLoaiMay)
+                                    .FirstOrDefault();       
+                ViewBag.Name = loaiMayName ?? "Không tìm thấy loại máy";
+            }
+
+            var result = kieuMays.Select(p => new MenuKieuMayVM
             {
                 MaKieuMay = p.MaKieuMay,
                 TenKieuMay = p.TenKieuMay,
@@ -105,12 +153,22 @@ namespace AgriculturalSupplyStore.Controllers
 
 
         //Bộ Phận là vị trí của máy. tìm bộ phận theo mã 3
-        public IActionResult BoPhan(int? kieumay)
+        public IActionResult BoPhan(string? kieumay)
         {
             var boPhans = db.BoPhans.AsQueryable();
-            if (kieumay.HasValue)
+            if (kieumay != null)
             {
-                boPhans = boPhans.Where(p => p.MaKieuMay == kieumay.Value);
+                boPhans = boPhans.Where(p => p.MaKieuMay == kieumay);
+            }
+            if (kieumay != null)
+            {
+                boPhans = boPhans.Where(p => p.MaKieuMay == kieumay);
+
+                var kieuMayName = db.KieuMays
+                                    .Where(lm => lm.MaKieuMay == kieumay)
+                                    .Select(lm => lm.TenKieuMay)
+                                    .FirstOrDefault();
+                ViewBag.Name = kieuMayName ?? "Không tìm thấy kiểu máy";
             }
 
             var result = boPhans.Select(p => new MenuBoPhanVM
@@ -124,6 +182,7 @@ namespace AgriculturalSupplyStore.Controllers
             });
             return View(result);
         }
+
 
         //AdminBoPhan là các bộ phần của máy 3
         public IActionResult AdminBoPhan()
@@ -157,26 +216,36 @@ namespace AgriculturalSupplyStore.Controllers
         }
 
         //Phận là vị trí của Hàng hóa. Theo mã  4
-        public async Task<IActionResult> Phan(int? bophan)
+        public async Task<IActionResult>Phan(string? bophan)
         {
             var Phans = db.Phans.AsQueryable();
-            if (bophan.HasValue)
+            if (bophan != null)
             {
-                Phans = Phans.Where(p => p.MaBoPhan == bophan.Value);
+                Phans = Phans.Where(p => p.MaBoPhan == bophan);
+            }
+            if (bophan != null)
+            {
+                Phans = Phans.Where(p => p.MaBoPhan == bophan);
+
+                var BoPhanName = db.BoPhans
+                                    .Where(lm => lm.MaBoPhan == bophan)
+                                    .Select(lm => lm.TenBoPhan)
+                                    .FirstOrDefault();
+                ViewBag.Name = BoPhanName ?? "Không tìm thấy bộ phận";
             }
 
-            var result = await Phans.Select(p => new MenuPhanVM
+            var result = Phans.Select(p => new MenuPhanVM
             {
                 MaPhan = p.MaPhan,
                 TenPhan = p.TenPhan,
                 TenPhanAlias = p.TenPhanAlias,
                 Hinh = p.Hinh,
                 MoTa = p.MoTa,
-                MaBoPhan = p.MaBoPhan
-            }).ToListAsync();
-
+                MaBoPhan = p.MaBoPhan,
+            });
             return View(result);
         }
+
         //AdminBoPhan là hiển thị phần của sản phẩm 4
         public IActionResult AdminPhan()
         {
@@ -225,13 +294,13 @@ namespace AgriculturalSupplyStore.Controllers
                 TenHh = p.TenHh,
                 TenAlias = p.TenAlias,
                 MaPhan = p.MaPhan,
-                MoTaDonVi = p.MoTaDonVi,
+                MoTaNgan = p.MoTaDonVi,
                 DonGia = p.DonGia,
                 Hinh = p.Hinh,
                 NgaySx = p.NgaySx,
                 GiamGia = p.GiamGia,
                 SoLanXem = p.SoLanXem,
-                MoTa = p.MoTa,
+                ChiTiet = p.MoTa,
                 MaNcc = p.MaNcc
             });
             return View(result);
@@ -239,30 +308,32 @@ namespace AgriculturalSupplyStore.Controllers
 
 
         //Trang chi tiết Hàng hóa
-        public IActionResult Detail(int id)
+        public IActionResult Detail(string mahh)
         {
 
             var data = db.HangHoas
                 .Include(p => p.MaPhanNavigation)
                 .Include(p => p.MaNccNavigation)
-                .SingleOrDefault(p => p.MaHh == id);
+                .SingleOrDefault(p => p.MaHh == mahh);
             if (data == null)
             {
-                TempData["Message"] = $"Không tìm thấy Sản phẩm có mã {id}";
+                TempData["Message"] = $"Không tìm thấy Sản phẩm có mã {mahh}";
                 return Redirect("/404");
             }
             var result = new ChiTietHHVM
             {
                 MaHh = data.MaHh,
                 TenHh = data.TenHh,
-                DonGia = data.DonGia ?? 0,
+                DonGia = data.DonGia,
                 ChiTiet = data.MoTa ?? string.Empty,
                 DiemDanhGia = 5,
+                NgaySx = data.NgaySx,
+                TenAlias = data.TenAlias ?? string.Empty,
                 Hinh = data.Hinh ?? string.Empty,
                 MoTaNgan = data.MoTaDonVi,
                 TenPhan = data.MaPhanNavigation.TenPhan,
                 TenCongTy = data.MaNccNavigation.TenCongTy,
-                SoLuongTon = 10,
+                SoLuongTon = data.SoLuong,
 
             };
             return View(result);
@@ -277,18 +348,57 @@ namespace AgriculturalSupplyStore.Controllers
                 TenHh = p.TenHh,
                 TenAlias = p.TenAlias,
                 MaPhan = p.MaPhan,
-                MoTaDonVi = p.MoTaDonVi,
+                MoTaNgan = p.MoTaDonVi,
                 DonGia = p.DonGia,
                 Hinh = p.Hinh,
                 NgaySx = p.NgaySx,
                 GiamGia = p.GiamGia,
                 SoLanXem = p.SoLanXem,
-                MoTa = p.MoTa,
+                ChiTiet = p.MoTa,
                 MaNcc = p.MaNcc
             });
 
             return View(data);
         }
+
+        ///AdminCreateHangHoa là thêm hàng hóa vào database
+        // GET: Tạo hàng hóa
+        [HttpGet]
+        public IActionResult AdminCreateHangHoa()
+        {
+            return View();
+        }
+
+        // POST: Tạo hàng hóa
+        [HttpPost]
+        public IActionResult AdminCreateHangHoa(MenuHangHoaVM model, IFormFile Hinh)
+        {   
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var hangHoa = _mapper.Map<HangHoa>(model);                   
+                    hangHoa.SoLanXem = 0;                   
+
+                    if (Hinh != null)
+                    {
+                        hangHoa.Hinh = MyUtil.UploadHinh(Hinh, "hanghoa_images");
+                    }
+                    db.Add(hangHoa);
+                    db.SaveChanges();
+                    return RedirectToAction("AdminHangHoa", "HangHoa");
+
+                }
+                catch (Exception ex)
+                {
+                    var mess = $"{ex.Message} shh";
+                }
+            }
+            return View();
+        }
+
+
+
 
         //AdminDeleteHangHoa là Xóa Hàng Hóa 
         [HttpPost, ActionName("AdminDeleteHangHoa")]
@@ -306,7 +416,7 @@ namespace AgriculturalSupplyStore.Controllers
         }
 
         //AdminDetailHangHoa là chi tiết hàng hóa
-        public IActionResult AdminDetailHangHoa(int mahh)
+        public IActionResult AdminDetailHangHoa(string mahh)
         {
             var data = db.HangHoas
                 .Include(p => p.MaPhanNavigation)
@@ -321,14 +431,16 @@ namespace AgriculturalSupplyStore.Controllers
             {
                 MaHh = data.MaHh,
                 TenHh = data.TenHh,
-                DonGia = data.DonGia ?? 0,
+                DonGia = data.DonGia,
                 ChiTiet = data.MoTa ?? string.Empty,
                 DiemDanhGia = 5,
                 Hinh = data.Hinh ?? string.Empty,
-                MoTaNgan = data.MoTaDonVi,
+                NgaySx = data.NgaySx,
+                TenAlias = data.TenAlias ?? string.Empty,
+                MoTaNgan = data.MoTaDonVi,                
                 TenPhan = data.MaPhanNavigation.TenPhan,
                 TenCongTy = data.MaNccNavigation.TenCongTy,
-                SoLuongTon = 10,
+                SoLuongTon = data.SoLuong,
                 MaNcc = data.MaNcc,
                 MaPhan = data.MaPhan,
             };
@@ -388,6 +500,40 @@ namespace AgriculturalSupplyStore.Controllers
             };
             return View(result);
         }
-    
+        ///AdminCreateNCC là thêm nhà cung cấp vào database
+        // GET: Tạo nhà cung cấp
+        [HttpGet]
+        public IActionResult AdminCreateNCC()
+        {
+            return View();
+        }
+
+        // POST: Tạo nhà cung cấp
+        [HttpPost]
+        public IActionResult AdminCreateNCC(MenuNCCVM model, IFormFile logo)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var nhaCc = _mapper.Map<NhaCungCap>(model);
+                   
+
+                    if (logo != null)
+                    {
+                        nhaCc.Logo = MyUtil.UploadHinh(logo, "nhacungcap_images");
+                    }
+                    db.Add(nhaCc);
+                    db.SaveChanges();
+                    return RedirectToAction("AdminNCC", "HangHoa");
+
+                }
+                catch (Exception ex)
+                {
+                    var mess = $"{ex.Message} shh";
+                }
+            }
+            return View();
+        }
     }
 }

@@ -2,13 +2,13 @@
 {
 	public class MenuPhanVM
 	{
-		public int MaPhan { get; set; }
+		public string MaPhan { get; set; }
 
 		public string TenPhan { get; set; } = null!;
 
 		public string? TenPhanAlias { get; set; }
 
-		public int MaBoPhan { get; set; }
+		public string MaBoPhan { get; set; }
 
 		public string? MoTa { get; set; }
 

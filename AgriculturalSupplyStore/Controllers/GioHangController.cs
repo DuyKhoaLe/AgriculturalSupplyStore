@@ -3,6 +3,8 @@ using AgriculturalSupplyStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using AgriculturalSupplyStore.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgriculturalSupplyStore.Controllers
 {
@@ -21,7 +23,7 @@ namespace AgriculturalSupplyStore.Controllers
             return View(Cart);
         }
 
-        public IActionResult AddToCart(int id, int quantity = 1)
+        public IActionResult AddToCart(string id, int quantity = 1)
         {
             var giohang = Cart;
             var item = giohang.SingleOrDefault(p => p.MaHh == id);
@@ -37,7 +39,7 @@ namespace AgriculturalSupplyStore.Controllers
                 {
                     MaHh = hangHoa.MaHh,
                     TenHh = hangHoa.TenHh,
-                    DonGia = hangHoa.DonGia ?? 0,
+                    DonGia = hangHoa.DonGia,
                     Hinh = hangHoa.Hinh ?? string.Empty,
                     SoLuong = quantity
 
@@ -51,7 +53,7 @@ namespace AgriculturalSupplyStore.Controllers
             HttpContext.Session.Set(MySetting.CART_KEY, giohang);
             return RedirectToAction("Index");
         }
-        public IActionResult RemoveCart(int id)
+        public IActionResult RemoveCart(string id)
         {
             var giohang = Cart;
             var item = giohang.SingleOrDefault(p => p.MaHh == id);
@@ -131,6 +133,81 @@ namespace AgriculturalSupplyStore.Controllers
                 }
             }
             return View(Cart);
+        }
+
+        ///AdminHoaDon là trang hiển thị thông tin các đơn hàng
+        public IActionResult AdminHoaDon()
+        {
+            var data = db.HoaDons               
+                 .Include(p => p.MaTrangThaiNavigation)     
+                .Select(p => new HoaDonVM
+            {
+                MaHd = p.MaHd,
+                MaKh = p.MaKh,
+                HoTen = p.HoTen,
+                CachThanhToan = p.CachThanhToan,
+                CachVanChuyen = p.CachVanChuyen,
+                TenTrangThai = p.MaTrangThaiNavigation.TenTrangThai,
+                MaTrangThai = p.MaTrangThai,                
+            });
+
+            return View(data);
+        }
+
+        ///AdminDetailHoaDon là trang hiển thị thông tin chi tiết đơn hàng
+        public IActionResult AdminDetailHoaDon(int? mahd)
+        {
+            var hoaDons = db.HoaDons
+                 .Include(p => p.MaNvNavigation)
+                .AsQueryable();
+            if (mahd.HasValue)
+            {
+                hoaDons = hoaDons.Where(p => p.MaHd == mahd.Value);
+            }
+            var result = hoaDons.Select(p => new HoaDonVM
+            {
+                MaHd = p.MaHd,
+                MaKh = p.MaKh,
+                HoTen = p.HoTen,
+                CachThanhToan = p.CachThanhToan,
+                CachVanChuyen = p.CachVanChuyen,
+                TenTrangThai = p.MaTrangThaiNavigation.TenTrangThai,
+                MaTrangThai = p.MaTrangThai,
+                NgayDat = p.NgayDat,
+                NgayCan = p.NgayCan,
+                NgayGiao = p.NgayGiao,
+                DiaChi = p.DiaChi,
+                PhiVanChuyen = p.PhiVanChuyen,
+                MaNv = p.MaNv,
+                TenNv = p.MaNvNavigation.HoTen,
+                GhiChu = p.GhiChu,
+                DienThoai = p.DienThoai,
+            });
+            return View(result);
+        }
+
+        ///AdminChiTietHD là trang hiển thị thông tin chi tiết đơn hàng
+        public IActionResult AdminChiTietHD(int? mahd)
+        {
+            var CThoaDons = db.ChiTietHds    
+                .Include(p => p.MaHdNavigation)
+                .AsQueryable();
+            if (mahd.HasValue)
+            {
+                CThoaDons = CThoaDons.Where(p => p.MaHd == mahd.Value);
+            }
+            var result = CThoaDons.Select(p => new ChiTietHDVM
+            {
+                MaCt = p.MaCt,
+                MaHd = p.MaHd,
+                TenHh = p.MaHhNavigation.TenHh,
+                MaHh = p.MaHh,
+               DonGia = p.DonGia,
+               SoLuong = p.SoLuong,
+               GiamGia = p.GiamGia,   
+               Hinh = p.MaHhNavigation.Hinh,
+            });
+            return View(result);
         }
     }
 }

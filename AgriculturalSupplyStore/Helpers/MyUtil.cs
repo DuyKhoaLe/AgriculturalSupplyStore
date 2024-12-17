@@ -9,7 +9,7 @@ namespace AgriculturalSupplyStore.Helpers
         {
             try
             {
-                var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "khachhang_images", folder, Hinh.FileName);
+                var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", folder, Hinh.FileName);
                 using (var myfile = new FileStream(fullPath, FileMode.CreateNew))
                 {
                     Hinh.CopyTo(myfile);

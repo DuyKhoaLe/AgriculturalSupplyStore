@@ -2,7 +2,7 @@
 {
     public class ChiTietHHVM
     {
-        public int MaHh { get; set; }
+        public string MaHh { get; set; }
 
         public string TenHh { get; set; }
         public int SoLuong { get; set; }
@@ -14,8 +14,9 @@
         public double? DonGia { get; set; }
 
         public string? Hinh { get; set; }
-        public int MaPhan { get; set; }
-
+        public string MaPhan { get; set; }
+        public DateTime NgaySx { get; set; }
+        public string? TenAlias { get; set; }
         public string? TenPhan{ get; set; }       
 
         public string?  ChiTiet { get; set; }     

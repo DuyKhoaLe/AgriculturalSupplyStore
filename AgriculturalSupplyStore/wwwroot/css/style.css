@@ -1134,9 +1134,10 @@ textarea {
     .site-blocks-table thead th {
         padding: 30px;
         text-align: center;
-        border-width: 0px !important;
+        border-width: 1px 0px 0px 0px !important;        
+        border-color: #3b5d50;
         vertical-align: middle;
-        color: rgba(0, 0, 0, 0.8);
+        color: #3b5d50;
         font-size: 18px;
     }
 

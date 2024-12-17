@@ -1,18 +1,18 @@
 ﻿@model AgriculturalSupplyStore.ViewModels.ChiTietHHVM
 
 @{
-    ViewData["Title"] = "Chi Tiết hàng hóa";
+    ViewData["Title"] = @Model.TenHh;
 }
 <!-- Header Start -->
 <div class="container-fluid bg-breadcrumb">
-	<div class="container text-center py-5" style="max-width: 900px;">
-		<h4 class="text-white display-4 mb-4 wow fadeInDown " data-wow-delay="0.1s">Chi Tiết Sản Phẩm</h4>
-		<ol class="breadcrumb d-flex  justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-4 mb-4 wow fadeInDown " data-wow-delay="0.1s">@Model.TenHh</h4>
+        <ol class="breadcrumb d-flex  justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
             <li class="breadcrumb-items_first"><a>Trang Chủ</a></li>
-			<li class="breadcrumb-items "><a>Phụ Tùng</a></li>
-			<li class="breadcrumb-items "><a>@Model.TenHh</a></li>
-		</ol>
-	</div>
+            <li class="breadcrumb-items "><a>Phụ Tùng</a></li>
+            <li class="breadcrumb-items "><a>@Model.TenHh</a></li>
+        </ol>
+    </div>
 </div>
 
 <div class="d-flex justify-content-center align-items-center">
@@ -22,7 +22,6 @@
                 <img src="~/images/hanghoa_images/@Model.Hinh" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;" alt="@Model.TenHh">
             </div>
         </div>
-
         <div class="col-md-6">
             <h1 class="display-5 text-primary">@Model.TenHh</h1>
             <dt class="col-sm-4 text-secondary">Điểm đánh giá: @Model.DiemDanhGia</dt>
@@ -30,14 +29,9 @@
             <hr class="my-4">
 
             <dl class="row">
-                <dt class="col-sm-4 text-secondary">Số lượng</dt>
-                <dd class="col-sm-8">@Model.SoLuongTon</dd>
-
-                <dt class="col-sm-4 text-secondary">Loại</dt>
-                <dd class="col-sm-8">@Model.TenPhan</dd>
-
-                <dt class="col-sm-4 text-secondary">Công Ty</dt>
-                <dd class="col-sm-8">@Model.TenCongTy</dd>
+                <dt class="col-sm-4 text-secondary">Số lượng kho: @Model.SoLuongTon</dt>
+                <dd class="col-sm-8"></dd>
+               
 
                 <dt class="col-sm-8 mt-4">
                     <h3 class="text-danger font-weight-bold">@(Model.DonGia.HasValue ? Model.DonGia.Value.ToString("#,##0.000") : "0") ₫</h3>
@@ -52,6 +46,67 @@
                     <button class="btn btn-primary w-100 mt-3">Thêm vào giỏ hàng</button>
                 </div>
             </form>
+        </div>
+        <div class="col-lg-12">
+            <nav>
+                <div class="nav nav-tabs mb-3">
+                    <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
+                            id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
+                            aria-controls="nav-about" aria-selected="true">
+                        Thông số kỹ thuật
+                    </button>
+                    <button class="nav-link border-white border-bottom-0" type="button" role="tab"
+                            id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
+                            aria-controls="nav-mission" aria-selected="false">
+                        Đánh giá
+                    </button>
+                </div>
+            </nav>
+            <div class="tab-content mb-5">
+                <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                    <p>
+                        @Model.ChiTiet
+                    </p>
+                    <div class="px-2">
+                        <div class="row g-4">
+                            <div class="col-6">
+                                <div class="row bg-light align-items-center text-center justify-content-center py-2">
+                                    <div class="col-6">
+                                        <p class="mb-0">Loại sản phẩm</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="mb-0">@Model.TenPhan</p>
+                                    </div>
+                                </div>
+                                <div class="row text-center align-items-center justify-content-center py-2">
+                                    <div class="col-6">
+                                        <p class="mb-0">Tên Alias</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="mb-0">@Model.TenAlias</p>
+                                    </div>
+                                </div>
+                                <div class="row text-center align-items-center justify-content-center py-2">
+                                    <div class="col-6">
+                                        <p class="mb-0">Công ty</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="mb-0">@Model.TenCongTy</p>
+                                    </div>
+                                </div>
+                                <div class="row bg-light text-center align-items-center justify-content-center py-2">
+                                    <div class="col-6">
+                                        <p class="mb-0">Ngày sản xuất</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="mb-0">@Model.NgaySx.ToString("dd/mm/yyyy")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

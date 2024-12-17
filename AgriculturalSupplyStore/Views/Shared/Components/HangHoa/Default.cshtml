@@ -4,8 +4,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>STT</th>
-                <th>Hình</th>
+                <th>STT</th>     
                 <th>Tên hàng hóa</th>
                 <th>Mã số</th>
                 <th>Đơn giá</th>
@@ -19,12 +18,11 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@stt</td>
-                    <td><img src="~/images/hanghoa_images/@item.Hinh" alt="@item.TenHh" /></td>
+                    <td>@stt</td>                   
                     <td>@item.TenHh</td>
                     <td>@item.MaHh</td>
-                    <td>@item.DonGia</td>   
-                    <td><a asp-controller="HangHoa" asp-action="Detail" asp-route-id="@item.MaHh">Chi tiết</a></td>
+                    <td>@item.DonGia.ToString("#,##0.000")₫</td>
+                    <td><a asp-controller="HangHoa" asp-action="Detail" asp-route-mahh="@item.MaHh">Chi tiết</a></td>
                 </tr>
                 stt++;
             }

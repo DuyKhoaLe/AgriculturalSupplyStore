@@ -1,0 +1,93 @@
+﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.HoaDonVM>
+@{
+    ViewData["Title"] = "Danh Sách Hóa Đơn";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="content">
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Danh Sách Hóa Đơn</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="./">Trang Chủ</a></li>
+                <li class="breadcrumb-item">Hóa Đơn</li>
+                <li class="breadcrumb-item active" aria-current="page">Danh Sách Hóa Đơn</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 mb-4">
+                <!-- Simple Tables -->
+                <div class="card">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Stt</th>
+                                    <th>Mã hóa đơn</th>
+                                    <th>Mã khách hàng</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Cách thanh toán</th>
+                                    <th>Cách vận chuyển</th>
+                                    <th>Trạng thái</th>
+                                    <th>Tác Vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int stt = 1;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@stt</td>
+                                        <td>@item.MaHd</td>
+                                        <td>@item.MaKh</td>
+                                        <td>@item.HoTen</td>
+                                        <td>@item.CachThanhToan</td>
+                                        <td>@item.CachVanChuyen</td>
+                                        <td>
+                                            <span>@item.TenTrangThai</span>
+                                            <form asp-action="AdminUpdateTrangThai" method="post" style="display:inline;">
+                                                <input type="hidden" name="mahd" value="@item.MaHd" />
+                                                <button class="btn btn-sm btn-link text-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0;">
+                                                    <i class="fas fa-chevron-down"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" >Chờ giao hàng</a></li>
+                                                    <li><a class="dropdown-item" >Đã thanh toán</a></li>
+                                                    <li><a class="dropdown-item">Đã giao hàng</a></li>
+                                                    <li><a class="dropdown-item" >Khách hàng hủy đơn hàng</a></li>
+                                                </ul>
+                                                <input type="hidden" name="trangthai" value="@item.TenTrangThai" />
+                                            </form>
+                                        </td>                               
+                                        <td class="d-flex justify-content-center align-items-center w-100 gap-2">
+                                            <a asp-action="AdminDetailHoaDon" asp-route-mahd="@item.MaHd" class="btn btn-sm btn-primary" style="margin-right: 5px;">Xem</a>
+                                            <form asp-action="AdminDeleteHoaDon" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa hóa đơn có mã @item.MaHd?');">
+                                                <input type="hidden" name="mabp" value="@item.MaHd" />
+                                                <button type="submit" class="btn btn-danger btn-circle btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    stt++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+        </div>
+        <!--Row-->
+    </div>
+    <!---Container Fluid-->
+</div>
+
+

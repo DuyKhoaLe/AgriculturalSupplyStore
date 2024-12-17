@@ -1,29 +1,60 @@
-﻿namespace AgriculturalSupplyStore.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AgriculturalSupplyStore.ViewModels
 {
 	public class MenuHangHoaVM
 	{
-		public int MaHh { get; set; }
+        [Display(Name = "Mã hàng hóa")]
+        [Required(ErrorMessage = "*")]
+        [MaxLength(50, ErrorMessage = "Tối đa 50 ký tự")]
+        public string MaHh { get; set; }
 
-		public string TenHh { get; set; } = null!;
+        [Display(Name = "Tên hàng hóa")]
+        [Required(ErrorMessage = "*")]
+        [MaxLength(50, ErrorMessage = "Tối đa 50 ký tự")]
+        public string TenHh { get; set; } = null!;
 
-		public string? TenAlias { get; set; }
+        [Display(Name = "Tên Alias")]
+        [Required(ErrorMessage = "*")]
+        [MaxLength(50, ErrorMessage = "Tối đa 50 ký tự")]
+        public string? TenAlias { get; set; }
 
-		public int MaPhan { get; set; }
+        [Display(Name = "Mã vị trí")]
+        [Required(ErrorMessage = "*")]
+        public string MaPhan { get; set; }
 
-		public string? MoTaDonVi { get; set; }
+        [Display(Name = "Mô tả ngắn")]
+        [Required(ErrorMessage = "*")]
+        [MaxLength(50, ErrorMessage = "Tối đa 50 ký tự")]
+        public string? MoTaNgan { get; set; }
 
-		public double? DonGia { get; set; }
+        [Display(Name = "Đơn giá")]
+        [Required(ErrorMessage = "*")]
+        public double DonGia { get; set; }
 
-		public string? Hinh { get; set; }
+        [Display(Name = "Hình ảnh")]
+        [EmailAddress(ErrorMessage = "Chưa đúng định dạng ảnh")]
+        public string? Hinh { get; set; } = null!;
 
-		public DateTime NgaySx { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Ngày sản xuất")]
+        public DateTime NgaySx { get; set; }
 
-		public double GiamGia { get; set; }
+        [Display(Name = "Giảm giá")]       
+        public double GiamGia { get; set; }       
+        public int SoLanXem { get; set; }
 
-		public int SoLanXem { get; set; }
+        [Display(Name = "Số lượng")]
+        [Required(ErrorMessage = "*")]
+        public int SoLuong { get; set; }
 
-		public string? MoTa { get; set; }
+        [Display(Name = "Mô tả ngắn")]
+        [Required(ErrorMessage = "*")]      
+        public string? ChiTiet { get; set; }
 
-		public string MaNcc { get; set; } = null!;
+        [Display(Name = "Mã nhà cung cấp")]
+        [Required(ErrorMessage = "*")]
+        [MaxLength(50, ErrorMessage = "Tối đa 50 ký tự")]
+        public string MaNcc { get; set; } = null!;
 	}
 }

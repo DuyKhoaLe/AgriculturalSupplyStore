@@ -33,9 +33,9 @@
 					<li>
 						<a class="nav-link" asp-controller="Home" asp-action="Index">Trang Chủ </a>
 					</li>
-					<li><a class="nav-link" href="">Giới Thiệu</a></li>
-					<li><a class="nav-link" href="">Máy YANMAR</a></li>
-					<li><a class="nav-link" href="">Máy KUBOTA</a></li>
+					<li><a class="nav-link" >Giới Thiệu</a></li>
+					<li><a class="nav-link" asp-controller="HangHoa" action="" action="">Máy YANMAR</a></li>
+					<li><a class="nav-link">Máy KUBOTA</a></li>
 					<li><a class="nav-link" asp-controller="HangHoa" asp-action="Index">Phụ Tùng</a></li>
 					<li><a class="nav-link" asp-controller="Home" asp-action="Contact">Liên Hệ</a></li>
 					<li><a class="nav-link" id="DaDangNhap" asp-controller="KhachHang" asp-action="Register"><img src="">Đăng Ký</a></li>
@@ -51,7 +51,9 @@
 					</div>
 				</form>
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-					<li><a class="nav-link" asp-controller="KhachHang" asp-action="Login"><img src="~/images/user.svg"></a></li>					
+					<li><a class="nav-link" id="Login" asp-controller="KhachHang" asp-action="Login"><img src="~/images/user.svg"></a></li>
+					<li><a class="nav-link" id="Profile" asp-controller="KhachHang" asp-action="Profile"><img src="~/images/user.svg"></a></li>
+					<li><a class="nav-link text-white  " asp-controller="GioHang" asp-action="DonHang"><i style="width: 34px;" class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
 					@await Component.InvokeAsync("Cart")
 				</ul>
 			</div>
@@ -170,10 +172,35 @@
 	<!-- Thêm jQuery từ CDN của jQuery -->
 	<!-- Thêm jQuery từ CDN của Google -->
 	<!-- Tải jQuery từ CDN -->
+	 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="~/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/tiny-slider.js"></script>
 	<script src="~/js/custom.js"></script>
+	<script>
+		$(document).ready(function () {
+			var userName = "@Context.User.Identity.Name";
+			if (userName) {
+				$("#DaDangNhap").hide();
+			}
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			var userName = "@Context.User.Identity.Name";
+			if (userName) {
+				$("#Login").hide();
+			}
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			var userName = "@Context.User.Identity.Name";
+			if (!userName) {
+				$("#Profile").hide();
+			}
+		});
+	</script>
 	@RenderSection("Scripts", required: false)
 </body>
 </html>

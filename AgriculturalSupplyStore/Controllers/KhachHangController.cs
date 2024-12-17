@@ -46,7 +46,7 @@ namespace AgriculturalSupplyStore.Controllers
                     }
                     db.Add(khachHang);
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "KhachHang");
 
                 }
                 catch (Exception ex)
@@ -107,7 +107,7 @@ namespace AgriculturalSupplyStore.Controllers
                             }
                             else
                             {
-                                return Redirect("/");
+                                return RedirectToAction(nameof(Profile));
                             }
 
                         }

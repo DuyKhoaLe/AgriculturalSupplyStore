@@ -59,7 +59,7 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-2235PGV4\\SQLEXPRESS;Database=AgriculturalsupplystoreDB;Persist Security Info=True;User ID=sa;Password=123456;Trust Server Certificate=True");
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-2235PGV4\\SQLEXPRESS;Database=AgriculturalsupplystoreDB;Persist Security Info=True;User ID=sa;Password=123456;Trust Server Certificate=True;MultipleActiveResultSets=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -72,7 +72,9 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
             entity.Property(e => e.MaBb).HasColumnName("MaBB");
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.HoTen).HasMaxLength(50);
-            entity.Property(e => e.MaHh).HasColumnName("MaHH");
+            entity.Property(e => e.MaHh)
+                .HasMaxLength(50)
+                .HasColumnName("MaHH");
             entity.Property(e => e.MaKh)
                 .HasMaxLength(20)
                 .HasColumnName("MaKH");
@@ -82,6 +84,7 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
 
             entity.HasOne(d => d.MaHhNavigation).WithMany(p => p.BanBes)
                 .HasForeignKey(d => d.MaHh)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_QuangBa_HangHoa");
 
             entity.HasOne(d => d.MaKhNavigation).WithMany(p => p.BanBes)
@@ -95,12 +98,15 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
 
             entity.ToTable("BoPhan");
 
+            entity.Property(e => e.MaBoPhan).HasMaxLength(50);
             entity.Property(e => e.Hinh).HasMaxLength(50);
+            entity.Property(e => e.MaKieuMay).HasMaxLength(50);
             entity.Property(e => e.TenBoPhan).HasMaxLength(50);
             entity.Property(e => e.TenBoPhanAlias).HasMaxLength(50);
 
             entity.HasOne(d => d.MaKieuMayNavigation).WithMany(p => p.BoPhans)
                 .HasForeignKey(d => d.MaKieuMay)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Parts_Segments");
         });
 
@@ -112,16 +118,19 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
 
             entity.Property(e => e.MaCt).HasColumnName("MaCT");
             entity.Property(e => e.MaHd).HasColumnName("MaHD");
-            entity.Property(e => e.MaHh).HasColumnName("MaHH");
+            entity.Property(e => e.MaHh)
+                .HasMaxLength(50)
+                .HasColumnName("MaHH");
             entity.Property(e => e.SoLuong).HasDefaultValue(1);
 
             entity.HasOne(d => d.MaHdNavigation).WithMany(p => p.ChiTietHds)
                 .HasForeignKey(d => d.MaHd)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_OrderDetails_Orders");
 
             entity.HasOne(d => d.MaHhNavigation).WithMany(p => p.ChiTietHds)
                 .HasForeignKey(d => d.MaHh)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_OrderDetails_Products");
         });
 
@@ -189,12 +198,15 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
 
             entity.ToTable("HangHoa");
 
-            entity.Property(e => e.MaHh).HasColumnName("MaHH");
+            entity.Property(e => e.MaHh)
+                .HasMaxLength(50)
+                .HasColumnName("MaHH");
             entity.Property(e => e.DonGia).HasDefaultValue(0.0);
             entity.Property(e => e.Hinh).HasMaxLength(50);
             entity.Property(e => e.MaNcc)
                 .HasMaxLength(50)
                 .HasColumnName("MaNCC");
+            entity.Property(e => e.MaPhan).HasMaxLength(50);
             entity.Property(e => e.MoTaDonVi).HasMaxLength(50);
             entity.Property(e => e.NgaySx)
                 .HasDefaultValueSql("(getdate())")
@@ -211,6 +223,7 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
 
             entity.HasOne(d => d.MaPhanNavigation).WithMany(p => p.HangHoas)
                 .HasForeignKey(d => d.MaPhan)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Products_Components");
         });
 
@@ -314,12 +327,15 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
 
             entity.ToTable("KieuMay");
 
+            entity.Property(e => e.MaKieuMay).HasMaxLength(50);
             entity.Property(e => e.Hinh).HasMaxLength(50);
+            entity.Property(e => e.MaLoaiMay).HasMaxLength(50);
             entity.Property(e => e.TenKieuAlias).HasMaxLength(50);
             entity.Property(e => e.TenKieuMay).HasMaxLength(50);
 
             entity.HasOne(d => d.MaLoaiMayNavigation).WithMany(p => p.KieuMays)
                 .HasForeignKey(d => d.MaLoaiMay)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Segments_Types");
         });
 
@@ -329,6 +345,7 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
 
             entity.ToTable("LoaiMay");
 
+            entity.Property(e => e.MaLoaiMay).HasMaxLength(50);
             entity.Property(e => e.Hinh).HasMaxLength(50);
             entity.Property(e => e.TenLoaiAlias).HasMaxLength(50);
             entity.Property(e => e.TenLoaiMay).HasMaxLength(50);
@@ -371,12 +388,15 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
 
             entity.ToTable("Phan");
 
+            entity.Property(e => e.MaPhan).HasMaxLength(50);
             entity.Property(e => e.Hinh).HasMaxLength(50);
+            entity.Property(e => e.MaBoPhan).HasMaxLength(50);
             entity.Property(e => e.TenPhan).HasMaxLength(50);
             entity.Property(e => e.TenPhanAlias).HasMaxLength(50);
 
             entity.HasOne(d => d.MaBoPhanNavigation).WithMany(p => p.Phans)
                 .HasForeignKey(d => d.MaBoPhan)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Components_Parts");
         });
 
@@ -475,7 +495,9 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
             entity.ToTable("YeuThich");
 
             entity.Property(e => e.MaYt).HasColumnName("MaYT");
-            entity.Property(e => e.MaHh).HasColumnName("MaHH");
+            entity.Property(e => e.MaHh)
+                .HasMaxLength(50)
+                .HasColumnName("MaHH");
             entity.Property(e => e.MaKh)
                 .HasMaxLength(20)
                 .HasColumnName("MaKH");
@@ -486,11 +508,6 @@ public partial class AgriculturalsupplystoreDbContext : DbContext
                 .HasForeignKey(d => d.MaHh)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_YeuThich_HangHoa");
-
-            entity.HasOne(d => d.MaKhNavigation).WithMany(p => p.YeuThiches)
-                .HasForeignKey(d => d.MaKh)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK_Favorites_Customers");
         });
 
         OnModelCreatingPartial(modelBuilder);

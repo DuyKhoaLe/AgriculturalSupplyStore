@@ -7,13 +7,13 @@ public partial class HoaDon
 {
     public int MaHd { get; set; }
 
-    public string MaKh { get; set; } = null!;
+    public string MaKh { get; set; } = null;
 
     public DateTime NgayDat { get; set; }
 
-    public DateTime? NgayCan { get; set; }
+    public DateTime NgayCan { get; set; }
 
-    public DateTime? NgayGiao { get; set; }
+    public DateTime NgayGiao { get; set; }
 
     public string? HoTen { get; set; }
 

@@ -5,19 +5,19 @@ namespace AgriculturalSupplyStore.Data;
 
 public partial class BoPhan
 {
-    public int MaBoPhan { get; set; }
-
     public string TenBoPhan { get; set; } = null!;
 
     public string? TenBoPhanAlias { get; set; }
 
-    public int MaKieuMay { get; set; }
+    public string? MaKieuMay { get; set; }
 
     public string? MoTa { get; set; }
 
     public string? Hinh { get; set; }
 
-    public virtual KieuMay MaKieuMayNavigation { get; set; } = null!;
+    public string MaBoPhan { get; set; } = null!;
+
+    public virtual KieuMay? MaKieuMayNavigation { get; set; }
 
     public virtual ICollection<Phan> Phans { get; set; } = new List<Phan>();
 }

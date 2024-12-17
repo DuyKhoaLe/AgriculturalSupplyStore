@@ -9,7 +9,7 @@ public partial class ChiTietHd
 
     public int MaHd { get; set; }
 
-    public int MaHh { get; set; }
+    public string? MaHh { get; set; }
 
     public double DonGia { get; set; }
 
@@ -17,7 +17,7 @@ public partial class ChiTietHd
 
     public double GiamGia { get; set; }
 
-    public virtual HoaDon MaHdNavigation { get; set; } = null!;
+    public virtual HoaDon? MaHdNavigation { get; set; }
 
-    public virtual HangHoa MaHhNavigation { get; set; } = null!;
+    public virtual HangHoa? MaHhNavigation { get; set; }
 }

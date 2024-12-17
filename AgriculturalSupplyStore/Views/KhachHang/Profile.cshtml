@@ -1,8 +1,27 @@
-﻿
-@{
-    ViewData["Title"] = "Profile";
+﻿@{
+    ViewData["Title"] = "Trang Cá Nhân";
 }
 
-<h1>Profile</h1>
-<h2>Welcome @Context.User.Identity.Name</h2>
-<h1><a asp-controller="KhachHang" asp-action="Logout">Đăng Xuất</a></h1>
+
+
+
+<div class="">
+    <div class="container-fluid py-5 d-flex align-items-center justify-content-center ">
+        <div class="col-md-6 mb-5 mb-md-0">         
+            <form enctype="multipart/form-data">
+                <div class="text-danger"></div>
+                <div class="p-3 p-lg-5 border bg-white">
+                    <div class="container text-center mt-" style="margin-top: 50px !important;">                  
+                        <h2 class="mb-4">Chào mừng <strong>@Context.User.Identity.Name</strong>, bạn đã quay trở lại!</h2>
+
+                        <div class="d-flex flex-column align-items-center">
+                            <a class="btn btn-danger btn-lg mb-3" asp-controller="KhachHang" asp-action="Logout">Đăng Xuất</a>
+
+                            <a class="btn btn-primary btn-lg" asp-controller="KhachHang" asp-action="EditCustomer">Chỉnh sửa thông tin cá nhân</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

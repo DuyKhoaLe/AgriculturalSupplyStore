@@ -1,0 +1,78 @@
+﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.HoaDonVM>
+@{
+    ViewData["Title"] = "Danh Sách Hóa Đơn";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="content">
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Xem Hóa Đơn</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="./">Trang Chủ</a></li>
+                <li class="breadcrumb-item">Hóa Đơn</li>
+                <li class="breadcrumb-item active" aria-current="page">Xem Hóa Đơn</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 mb-4">
+                <!-- Simple Tables -->
+                <div class="card">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>                                   
+                                    <th>Mã hóa đơn</th>                             
+                                    <th>Tên khách hàng</th>
+                                    <th>Cách thanh toán</th>
+                                    <th>Cách vận chuyển</th>
+                                    <th>Điện thoại</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Ghi chú</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Ngày cần</th>
+                                    <th>Ngày giao</th>                                 
+                                    <th>Phí vận chuyển</th>                                    
+                                    <th>Tên nhân viên</th>
+                                    <th>Tác vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>                               
+                                @foreach (var item in Model)
+                                {
+                                    <tr>                                                                    
+                                        <td>@item.MaHd</td>
+                                        <td>@item.HoTen (@item.MaKh)</td>
+                                        <td>@item.CachThanhToan</td>
+                                        <td>@item.CachVanChuyen</td>
+                                        <td>@item.DienThoai</td>
+                                        <td>@item.DiaChi</td>
+                                        <td>@item.GhiChu</td>
+                                        <td>@item.TenTrangThai (@item.MaTrangThai)</td>
+                                        <td>@item.NgayDat.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.NgayCan.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.NgayGiao.ToString("dd/MM/yyyy")</td>                                      
+                                        <td>@item.PhiVanChuyen</td>                                      
+                                        <td>@item.TenNv (@item.MaNv)</td>
+                                        <td class="d-flex justify-content-center align-items-center w-100 gap-2">
+                                            <a asp-action="AdminChiTietHD" asp-route-mahd="@item.MaHd" class="btn btn-sm btn-primary" style="margin-right: 5px;">Xem chi tiết hóa đơn</a>                                           
+                                        </td>                                   
+                                    </tr>                                    
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+        </div>
+        <!--Row-->
+    </div>
+    <!---Container Fluid-->
+</div>
