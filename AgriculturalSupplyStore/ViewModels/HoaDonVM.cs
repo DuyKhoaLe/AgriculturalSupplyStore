@@ -3,10 +3,12 @@
     public class HoaDonVM
     {
         public int MaHd { get; set; }
+        public string Hinh { get; set; }
 
         public string MaKh { get; set; } = null!;
 
         public DateTime NgayDat { get; set; }
+        public int SoHh { get; set; }
 
         public DateTime NgayCan { get; set; }
 

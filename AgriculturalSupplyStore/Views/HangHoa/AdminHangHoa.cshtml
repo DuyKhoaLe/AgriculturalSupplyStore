@@ -34,6 +34,7 @@
                                     <th>Tên Hàng Hóa</th>
                                     <th>Mã Vị Trí</th>
                                     <th>Mô Tả Đơn Vị</th>
+                                    <th>Số lượng</th>
                                     <th>Đơn Giá</th>
                                     <th>Tác Vụ</th>
                                 </tr>
@@ -51,6 +52,7 @@
                                         <td>@item.TenHh</td>
                                         <td>@item.MaPhan</td>
                                         <td>@item.MoTaNgan</td>
+                                        <td>@item.SoLuong</td>
                                         <td>@item.DonGia</td>
                                     <td><a asp-action="AdminDetailHangHoa" asp-route-mahh="@item.MaHh" class="btn btn-sm btn-primary">Chi tiết</a>
                                             <form asp-action="AdminDeleteHangHoa" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm @item.TenHh?');">

@@ -38,8 +38,7 @@
                                     <th>Ngày đặt</th>
                                     <th>Ngày cần</th>
                                     <th>Ngày giao</th>                                 
-                                    <th>Phí vận chuyển</th>                                    
-                                    <th>Tên nhân viên</th>
+                                    <th>Phí vận chuyển</th>                                                                     
                                     <th>Tác vụ</th>
                                 </tr>
                             </thead>
@@ -58,8 +57,7 @@
                                         <td>@item.NgayDat.ToString("dd/MM/yyyy")</td>
                                         <td>@item.NgayCan.ToString("dd/MM/yyyy")</td>
                                         <td>@item.NgayGiao.ToString("dd/MM/yyyy")</td>                                      
-                                        <td>@item.PhiVanChuyen</td>                                      
-                                        <td>@item.TenNv (@item.MaNv)</td>
+                                        <td>@item.PhiVanChuyen</td>                                                              
                                         <td class="d-flex justify-content-center align-items-center w-100 gap-2">
                                             <a asp-action="AdminChiTietHD" asp-route-mahd="@item.MaHd" class="btn btn-sm btn-primary" style="margin-right: 5px;">Xem chi tiết hóa đơn</a>                                           
                                         </td>                                   

@@ -83,7 +83,7 @@ namespace AgriculturalSupplyStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var customerId = HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_CUSTOMERID).Value;
+                var customerId = HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_CUSTOMERID)?.Value;
                 var khachHang = new KhachHang();
                 if (model.GiongKhachHang)
                 {
@@ -92,19 +92,19 @@ namespace AgriculturalSupplyStore.Controllers
                 var hoadon = new HoaDon
                 {
                     MaKh = customerId,
-                    HoTen = model.HoTen ?? khachHang.HoTen,
-                    DiaChi = model.DiaChi ?? khachHang.DiaChi,
-                    DienThoai = model.DienThoai ?? khachHang.DienThoai,
+                    HoTen = model.HoTen ?? khachHang?.HoTen,
+                    DiaChi = model.DiaChi ?? khachHang?.DiaChi,
+                    DienThoai = model.DienThoai ?? khachHang?.DienThoai,
                     NgayDat = DateTime.Now,
                     CachThanhToan = "COD",
                     CachVanChuyen = "Express",
                     MaTrangThai = 0,
-                    GhiChu = model.GhiChu
+                    GhiChu = model.GhiChu                    
                 };
+
                 db.Database.BeginTransaction();
                 try
                 {
-                    db.Database.CommitTransaction();
                     db.Add(hoadon);
                     db.SaveChanges();
 
@@ -122,18 +122,38 @@ namespace AgriculturalSupplyStore.Controllers
                     }
                     db.AddRange(cthds);
                     db.SaveChanges();
+                    foreach (var item in Cart)
+                    {
+                        var hangHoa = db.HangHoas.SingleOrDefault(hh => hh.MaHh == item.MaHh);
+                        if (hangHoa != null)
+                        {
+                            if (hangHoa.SoLuong >= item.SoLuong)
+                            {
+                                hangHoa.SoLuong -= item.SoLuong; 
+                                db.Update(hangHoa);
+                            }
+                            else
+                            {
+                                throw new Exception($"Hàng hóa {hangHoa.TenHh} không đủ số lượng trong kho.");
+                            }
+                        }
+                    }
 
+                    db.SaveChanges(); 
+
+                    db.Database.CommitTransaction();
                     HttpContext.Session.Set<List<GioHangHHVM>>(MySetting.CART_KEY, new List<GioHangHHVM>());
-
                     return View("Success");
                 }
-                catch
+                catch (Exception ex)
                 {
                     db.Database.RollbackTransaction();
+                    ModelState.AddModelError("", "Có lỗi xảy ra khi đặt hàng: " + ex.Message);
                 }
             }
             return View(Cart);
         }
+
 
         ///AdminHoaDon là trang hiển thị thông tin các đơn hàng
         public IActionResult AdminHoaDon()
@@ -154,7 +174,99 @@ namespace AgriculturalSupplyStore.Controllers
             return View(data);
         }
 
-        ///AdminDetailHoaDon là trang hiển thị thông tin chi tiết đơn hàng
+
+        ///CustomerHoaDon là trang hiển thị thông tin các đơn hàng, tên khách hàng, địa chỉ
+        public IActionResult CustomerGioHang()
+        {
+            var customerId = HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_CUSTOMERID)?.Value;
+
+            if (customerId == null)
+            {                
+                return RedirectToAction("Login", "KhachHang");
+            }
+            var data = db.HoaDons
+                .Include(p => p.MaTrangThaiNavigation)
+                .Include(p => p.ChiTietHds)
+                .Where(p => p.MaKh == customerId) 
+                .Select(p => new HoaDonVM
+                {
+                    MaHd = p.MaHd,
+                    MaKh = p.MaKh,
+                    HoTen = p.HoTen,
+                    CachThanhToan = p.CachThanhToan,
+                    CachVanChuyen = p.CachVanChuyen,
+                    TenTrangThai = p.MaTrangThaiNavigation.TenTrangThai,
+                    MaTrangThai = p.MaTrangThai,
+                    SoHh = p.ChiTietHds.Count(),                  
+                })                
+                .ToList();
+            if (!data.Any()) 
+            {
+                TempData["Message"] = $"Bạn chưa mua đơn hàng nào";
+                return Redirect("/404");
+            }
+
+            return View(data); 
+        }
+
+        ///CustomerCTHD là trang hiển thị thông tin chi tiết các đơn hàng
+        public IActionResult CustomerCTHD()
+        {
+            //var CThoaDons = db.ChiTietHds
+            //   .Include(p => p.MaHdNavigation)
+            //   .AsQueryable();
+            //if (mahd.HasValue)
+            //{
+            //    CThoaDons = CThoaDons.Where(p => p.MaHd == mahd.Value);
+            //}
+            //var result = CThoaDons.Select(p => new ChiTietHDVM
+            //{
+            //    MaCt = p.MaCt,
+            //    MaHd = p.MaHd,
+            //    TenHh = p.MaHhNavigation.TenHh,
+            //    MaHh = p.MaHh,
+            //    DonGia = p.DonGia,
+            //    SoLuong = p.SoLuong,
+            //    GiamGia = p.GiamGia,
+            //    Hinh = p.MaHhNavigation.Hinh,
+            //});
+            //return View(result);
+
+
+
+            var customerId = HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_CUSTOMERID)?.Value;
+
+            if (customerId == null)
+            {
+                return RedirectToAction("Login", "KhachHang");
+            }
+            var data = db.ChiTietHds
+                .Include(p => p.MaHhNavigation)
+                .Include(p => p.MaHdNavigation)
+                .Where(p => p.MaHdNavigation.MaKh == customerId)
+                .Select(p => new ChiTietHDVM
+                {
+                    MaCt = p.MaCt,
+                    MaHd = p.MaHd,
+                    TenHh = p.MaHhNavigation.TenHh,                
+                    DonGia = p.DonGia,
+                    SoLuong = p.SoLuong,
+                    GiamGia = p.GiamGia,
+                    TenPhan = p.MaHhNavigation.MaPhanNavigation.TenPhan,
+                    Hinh = p.MaHhNavigation.Hinh,
+                    MaTrangThai = p.MaHdNavigation.MaTrangThai
+                    
+                })
+                .ToList();
+            if (!data.Any())
+            {
+                TempData["Message"] = $"Bạn chưa mua đơn hàng nào";
+                return Redirect("/404");
+            }
+
+            return View(data);
+        }
+
         public IActionResult AdminDetailHoaDon(int? mahd)
         {
             var hoaDons = db.HoaDons

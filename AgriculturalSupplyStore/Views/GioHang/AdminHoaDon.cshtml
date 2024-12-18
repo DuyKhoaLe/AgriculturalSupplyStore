@@ -33,6 +33,7 @@
                                     <th>Tên khách hàng</th>
                                     <th>Cách thanh toán</th>
                                     <th>Cách vận chuyển</th>
+                                    <th>Ngày đặt</th>
                                     <th>Trạng thái</th>
                                     <th>Tác Vụ</th>
                                 </tr>
@@ -50,6 +51,7 @@
                                         <td>@item.HoTen</td>
                                         <td>@item.CachThanhToan</td>
                                         <td>@item.CachVanChuyen</td>
+                                        <td>@item.NgayDat.ToString("dd/MM/yyyy")</td>
                                         <td>
                                             <span>@item.TenTrangThai</span>
                                             <form asp-action="AdminUpdateTrangThai" method="post" style="display:inline;">

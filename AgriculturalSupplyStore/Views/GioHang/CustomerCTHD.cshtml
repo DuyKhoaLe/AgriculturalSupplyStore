@@ -1,0 +1,51 @@
+﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.ChiTietHDVM>
+@{
+    ViewData["Title"] = "Đơn hàng của bạn";
+}
+
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-4 mb-4 wow fadeInDown " data-wow-delay="0.1s">Đơn Hàng Của Bạn</h4>
+        <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+            <li class="breadcrumb-items_first "><a>Trang Chủ</a></li>
+            <li class="breadcrumb-items active text-primary"><a>Đơn Hàng</a></li>
+            <li class="breadcrumb-items active text-primary"><a>Hóa Đơn</a></li>
+        </ol>
+    </div>
+</div>
+<div class="container mt-5 mb-5 bg-white">
+    @foreach (var item in Model)
+    {
+        <div class="container ">         
+           @await Component.InvokeAsync("TrangThai", new { matrangthai = item.MaTrangThai })           
+            <a asp-action="CustomerCTHD" asp-route-id="@item.MaHd" class="text-decoration-none text-dark">
+                <div class="row g-0 align-items-center py-3 border-bottom">
+                    <div class="col-md-1 d-flex align-items-center justify-content-center">
+                        <img src="~/images/hanghoa_images/@item.Hinh"
+                             class="img-fluid rounded"
+                             style="width: 100px; height: 100px; object-fit: cover;">
+                    </div>
+                    <div class="col-md-6 mx-2">
+                        <h5 class="font-weight-bold text-primary">@item.TenHh</h5>
+                        <p class="mb-1">Phân loại: <small class="text-muted">@item.TenPhan</small></p>
+                        <p class="mb-1">x<small class="text-muted">@item.SoLuong</small></p>
+                    </div>
+                    <div class="col-md-4 text-end ">
+                        <h5 class="mb-0 text-danger">@item.DonGia.ToString("#,##0.000")₫</h5>
+                    </div>
+                </div>
+               
+            </a>        
+        </div>
+    }
+    <div class="col-md-12 text-end p-4 d-flex justify-content-end align-items-center">
+        <p class="mb-0 me-2">Thành tiền:</p>
+        <h4 class="mb-0 text-danger font-weight-bold">@Model.Sum(p => p.ThanhTien).ToString("#,##0.000")₫</h4>
+    </div>
+
+
+</div>
+
+
+
+
