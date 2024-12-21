@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgriculturalSupplyStore.Controllers
 {
@@ -123,6 +124,8 @@ namespace AgriculturalSupplyStore.Controllers
             return View(); 
         }
 
+
+
         [Authorize]
         public async Task<IActionResult> Logout()
         {
@@ -164,6 +167,86 @@ namespace AgriculturalSupplyStore.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(AdminKhachHang));
         }
+
+        //EditKhachHang là lấy thông tin khách hàng
+        [HttpGet]
+        public IActionResult EditKhachHang()
+        {
+            var customerId = HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_CUSTOMERID)?.Value;
+            var khachHang = db.KhachHangs.SingleOrDefault(kh => kh.MaKh == customerId);
+            if (khachHang == null)
+            {
+                return NotFound();
+            }
+
+            var model = new KhachHangVM
+            {
+                MaKh = khachHang.MaKh,
+                MatKhau = khachHang.MatKhau,
+                DienThoai = khachHang.DienThoai,
+                DiaChi = khachHang.DiaChi,
+                HoTen = khachHang.HoTen,
+                Email = khachHang.Email,
+                NgaySinh = khachHang.NgaySinh,
+                Hinh = khachHang.Hinh
+            };
+
+            return View(model);
+        }
+
+
+        // EditKhachHang là thực hiện chỉnh sửa khách hàng
+        [HttpPost]
+        public async Task<IActionResult> EditKhachHang(KhachHangVM model, IFormFile? Hinh)
+        {
+            if (ModelState.IsValid)
+            {
+                var khachHang = db.KhachHangs.SingleOrDefault(kh => kh.MaKh == model.MaKh);
+                if (khachHang == null)
+                {
+                    return NotFound();
+                }
+
+                khachHang.DienThoai = model.DienThoai;
+                khachHang.DiaChi = model.DiaChi;
+                khachHang.HoTen = model.HoTen;
+                khachHang.Email = model.Email;
+                khachHang.NgaySinh = model.NgaySinh;
+
+                if (!string.IsNullOrEmpty(model.MatKhau))
+                {
+                    khachHang.RandomKey = MyUtil.GenerateRandomKey();
+                    khachHang.MatKhau = model.MatKhau.ToMd5Hash(khachHang.RandomKey);
+                }
+
+                if (Hinh != null && Hinh.Length > 0)
+                {
+                    var fileName = Path.GetFileName(Hinh.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/khachhang_images", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await Hinh.CopyToAsync(stream);
+                    }
+
+                    khachHang.Hinh = fileName;
+                }
+
+                db.KhachHangs.Update(khachHang);
+                await db.SaveChangesAsync();
+                await HttpContext.SignOutAsync();
+
+                return RedirectToAction("FormChange"); 
+            }
+
+            return View(model);
+        }
+
+        public IActionResult FormChange()
+        {
+            return View();
+        }
+
 
         //AdminDetailKhachHang là chi tiết khách hàng
         public IActionResult AdminDetailKhachHang(string? makh)

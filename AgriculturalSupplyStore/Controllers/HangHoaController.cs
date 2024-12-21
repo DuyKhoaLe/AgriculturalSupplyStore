@@ -43,7 +43,7 @@ namespace AgriculturalSupplyStore.Controllers
         //AdminDeleteLoaiMay là xóa sản phẩm loại máy 1 
         [HttpPost, ActionName("AdminDeleteLoaiMay")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdminDeleteLoaiMay(int malm)
+        public async Task<IActionResult> AdminDeleteLoaiMay(string malm)
         {
             var product = await db.LoaiMays.FindAsync(malm);
             if (product != null)
@@ -62,7 +62,7 @@ namespace AgriculturalSupplyStore.Controllers
             return View();
         }
 
-        // POST: Tạo nhà cung cấp
+        // POST: Tạo loại máy
         [HttpPost]
         public IActionResult AdminCreateLoaiMay(MenuLoaiMayVM model, IFormFile Hinh)
         {
@@ -139,7 +139,7 @@ namespace AgriculturalSupplyStore.Controllers
         //AdminDeleteKieuMay là xóa sản phẩm kiểu máy 2 
         [HttpPost, ActionName("AdminDeleteKieuMay")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdminDeleteKieuMay(int makm)
+        public async Task<IActionResult> AdminDeleteKieuMay(string makm)
         {
             var product = await db.KieuMays.FindAsync(makm);
             if (product != null)
@@ -148,8 +148,43 @@ namespace AgriculturalSupplyStore.Controllers
             }
 
             await db.SaveChangesAsync();
-            return RedirectToAction(nameof(AdminKieuMay));
+            return RedirectToAction(nameof(AdminKieuMay));  
         }
+
+        //AdminCreateKieuMay là tạo Kiểu máy 2
+        [HttpGet]
+        public IActionResult AdminCreateKieuMay()
+        {
+            return View();
+        }
+
+        // POST: Tạo kiểu máy
+        [HttpPost]
+        public IActionResult AdminCreateKieuMay(MenuKieuMayVM model, IFormFile Hinh)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var kieuMay = _mapper.Map<KieuMay>(model);
+
+                    if (Hinh != null)
+                    {
+                        kieuMay.Hinh = MyUtil.UploadHinh(Hinh, "kieumay_images");
+                    }
+                    db.Add(kieuMay);
+                    db.SaveChanges();
+                    return RedirectToAction("AdminKieuMay", "HangHoa");
+
+                }
+                catch (Exception ex)
+                {
+                    var mess = $"{ex.Message} shh";
+                }
+            }
+            return View();
+        }
+        
 
 
         //Bộ Phận là vị trí của máy. tìm bộ phận theo mã 3
@@ -203,7 +238,7 @@ namespace AgriculturalSupplyStore.Controllers
         //AdminDeleteBoPhan là xóa sản Bộ Phận 3
         [HttpPost, ActionName("AdminDeleteBoPhan")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdminDeleteBoPhan(int mabp)
+        public async Task<IActionResult> AdminDeleteBoPhan(string mabp)
         {
             var data = await db.BoPhans.FindAsync(mabp);
             if (data != null)
@@ -214,6 +249,42 @@ namespace AgriculturalSupplyStore.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(AdminBoPhan));
         }
+
+        //AdminCreateBoPhan là tạo bộ phận máy 3
+        [HttpGet]
+        public IActionResult AdminCreateBoPhan()
+        {
+            return View();
+        }
+
+        // POST: Tạo bộ phân máy máy
+        [HttpPost]
+        public IActionResult AdminCreateBoPhan(MenuBoPhanVM model, IFormFile Hinh)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var boPhan = _mapper.Map<BoPhan>(model);
+
+                    if (Hinh != null)
+                    {
+                        boPhan.Hinh = MyUtil.UploadHinh(Hinh, "bophan_images");
+                    }
+                    db.Add(boPhan);
+                    db.SaveChanges();
+                    return RedirectToAction("AdminBoPhan", "HangHoa");
+
+                }
+                catch (Exception ex)
+                {
+                    var mess = $"{ex.Message} shh";
+                }
+            }
+            return View();
+        }
+
+
 
         //Phận là vị trí của Hàng hóa. Theo mã  4
         public async Task<IActionResult>Phan(string? bophan)
@@ -251,7 +322,7 @@ namespace AgriculturalSupplyStore.Controllers
         {
             var data = db.Phans.Select(p => new MenuPhanVM
             {
-                MaPhan = p.MaBoPhan,
+                MaPhan = p.MaPhan,
                 TenPhan = p.TenPhan,
                 TenPhanAlias = p.TenPhanAlias,
                 Hinh = p.Hinh,
@@ -265,7 +336,7 @@ namespace AgriculturalSupplyStore.Controllers
         //AdminDeletePhan là xóa phần của sản phẩm 4
         [HttpPost, ActionName("AdminDeletePhan")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdminDeletePhan(int map)
+        public async Task<IActionResult> AdminDeletePhan(string map)
         {
             var data = await db.Phans.FindAsync(map);
             if (data != null)
@@ -275,6 +346,40 @@ namespace AgriculturalSupplyStore.Controllers
 
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(AdminPhan));
+        }
+
+        //AdminCreatePhan là tạo thành phần máy 4
+        [HttpGet]
+        public IActionResult AdminCreatePhan()
+        {
+            return View();
+        }
+
+        // POST: Tạo thành phần 4
+        [HttpPost]
+        public IActionResult AdminCreatePhan(MenuPhanVM model, IFormFile Hinh)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var phan = _mapper.Map<Phan>(model);
+
+                    if (Hinh != null)
+                    {
+                        phan.Hinh = MyUtil.UploadHinh(Hinh, "phan_images");
+                    }
+                    db.Add(phan);
+                    db.SaveChanges();
+                    return RedirectToAction("AdminPhan", "HangHoa");
+
+                }
+                catch (Exception ex)
+                {
+                    var mess = $"{ex.Message} shh";
+                }
+            }
+            return View();
         }
 
 
@@ -397,7 +502,56 @@ namespace AgriculturalSupplyStore.Controllers
             return View();
         }
 
+        //AdminEditHangHoa là trang lấy hàng hóa
+        [HttpGet]
+        public async Task<IActionResult> AdminEditHangHoa(string mahh)
+        {
+            if (mahh == null)
+            {
+                TempData["Message"] = $"Không tìm thấy Sản phẩm có mã {mahh}";
+                return Redirect("Found/404");
+            }
 
+            var hangHoa = await db.HangHoas.FindAsync(mahh);
+            if (hangHoa == null)
+            {
+                TempData["Message"] = $"Không tìm thấy Sản phẩm có mã {mahh}";
+                return Redirect("Found/404");
+            }
+            var model = _mapper.Map<MenuHangHoaVM>(hangHoa);
+            return View(model);
+        }
+        /// AdminEditHangHoa là thực hiện chỉnh sửa hàng hóa
+        [HttpPost]
+        public IActionResult AdminEditHangHoa(MenuHangHoaVM model, IFormFile Hinh)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var hangHoa = db.HangHoas.Find(model.MaHh);
+                    if (hangHoa == null)
+                    {
+                        return Redirect("/Found/404");
+                    }
+                    _mapper.Map(model, hangHoa);
+
+                    if (Hinh != null)
+                    {
+                        hangHoa.Hinh = MyUtil.UploadHinh(Hinh, "hanghoa_images");
+                    }
+
+                    db.Update(hangHoa); 
+                    db.SaveChanges(); 
+                    return RedirectToAction("AdminHangHoa", "HangHoa");
+                }
+                catch (Exception ex)
+                {
+                    var mess = $"{ex.Message} shh";           
+                }
+            }
+            return View(model); 
+        }
 
 
         //AdminDeleteHangHoa là Xóa Hàng Hóa 

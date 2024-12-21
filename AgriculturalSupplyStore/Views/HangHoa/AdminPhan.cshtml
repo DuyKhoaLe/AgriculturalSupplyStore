@@ -54,7 +54,7 @@
                                         <td>@item.MoTa</td>
                                         <td class="d-flex justify-content-center align-items-center w-100 gap-2">
                                             <a asp-action="AdminEditPhan" asp-route-map="@item.MaPhan" class="btn btn-sm btn-primary" style="margin-right: 5px;">Sửa</a>
-                                            <form asp-action="AdminDeletePhan" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa vị trí @item.TenPhan?');">
+                                            <form asp-action="AdminDeletePhan" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa vị trí @item.MaPhan?');">
                                                 <input type="hidden" name="map" value="@item.MaPhan" />
                                                 <button type="submit" class="btn btn-danger btn-circle btn-sm">
                                                     <i class="fas fa-trash"></i>

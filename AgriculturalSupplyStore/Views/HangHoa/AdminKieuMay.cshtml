@@ -52,7 +52,7 @@
                                         <td>@item.MoTa</td>
                                         <td class="d-flex justify-content-center align-items-center w-100 gap-2">
                                             <a asp-action="AdminEditLoaiMay" asp-route-makm="@item.MaKieuMay" class="btn btn-sm btn-primary" style="margin-right: 5px;">Sửa</a>
-                                            <form asp-action="AdminDeleteLoaiMay" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa kiểu máy @item.TenKieuMay?');">
+                                            <form asp-action="AdminDeleteKieuMay" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa kiểu máy @item.TenKieuMay?');">
                                                 <input type="hidden" name="makm" value="@item.MaKieuMay" />
                                                 <button type="submit" class="btn btn-danger btn-circle btn-sm">
                                                     <i class="fas fa-trash"></i>

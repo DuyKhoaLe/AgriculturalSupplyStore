@@ -1,0 +1,67 @@
+﻿@model AgriculturalSupplyStore.ViewModels.MenuKieuMayVM
+@{
+    ViewData["Title"] = "Thêm kiểu máy";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Thêm Kiểu Máy</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Trang Chủ</a></li>
+            <li class="breadcrumb-item">Danh Sách Kiểu Máy</li>
+            <li class="breadcrumb-item active" aria-current="page">Trang Thêm Kiểu Máy</li>
+        </ol>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6 ">
+            <!-- Form Basic -->
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Nhập thông tin kiểu máy cần thêm</h6>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AdminCreateKieuMay" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label asp-for="@Model.MaKieuMay"></label>
+                            <input type="text" asp-for="@Model.MaKieuMay" class="form-control">
+                            <span asp-validation-for="@Model.MaKieuMay" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.TenKieuMay"></label>
+                            <input type="text" asp-for="@Model.TenKieuMay" class="form-control">
+                            <span asp-validation-for="@Model.TenKieuMay" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.TenKieuAlias"></label>
+                            <input asp-for="@Model.TenKieuAlias" type="text" class="form-control">
+                            <span asp-validation-for="@Model.TenKieuAlias" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.MaLoaiMay"></label>
+                            <input asp-for="@Model.MaLoaiMay" type="text" class="form-control">
+                            <span asp-validation-for="@Model.MaLoaiMay" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.MoTa"></label>
+                            <input type="text" asp-for="@Model.MoTa" class="form-control">
+                            <span asp-validation-for="@Model.MoTa" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Hinh" class="text-black"></label>
+                            <div class="custom-file">
+                                <input type="file" name="Hinh" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label">Chọn ảnh</label>
+                                <span asp-validation-for="@Model.Hinh" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Lưu Thông Tin</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

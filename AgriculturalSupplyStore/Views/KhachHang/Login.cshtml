@@ -23,11 +23,12 @@
                             <span asp-validation-for="@Model.Password" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="form-group mt-2 d-flex align-items-center justify-content-center">
+                    <div class="form-group mt-5 d-flex align-items-center justify-content-center">
                         <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Đăng Nhập</button>
+                    </div>                   
+                    <div class="text-center">
+                        <a asp-controller="KhachHang" asp-action="Register" class="font-weight-bold small">Chưa có tài khoản ?</a>
                     </div>
-                    <a class=" d-flex align-items-center justify-content-center" asp-controller="KhachHang" asp-action="ForgotPassword">Quên mật khẩu ?</a>
-                    <a class=" d-flex align-items-center justify-content-center" asp-controller="KhachHang" asp-action="Register">Chưa có tài khoản ?</a>
                 </div>
             </form>
         </div>

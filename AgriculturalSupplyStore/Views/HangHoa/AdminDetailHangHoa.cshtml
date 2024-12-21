@@ -14,7 +14,11 @@
         </div>
 
         <div class="" style=" width: 70%;">
-            <h1 class="display-5 text-primary">@Model.TenHh</h1>
+            <div>
+                <h1 class="display-5 text-primary">@Model.TenHh</h1>
+                <a asp-action="AdminEditHangHoa" asp-route-mahh="@Model.MaHh" class="btn  btn-primary">Chỉnh sửa</a>
+            </div>
+                  
             <hr class="my-4">
 
             <table class="table table-bordered">

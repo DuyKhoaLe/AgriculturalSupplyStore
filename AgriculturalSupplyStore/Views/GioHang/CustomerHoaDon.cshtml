@@ -1,0 +1,51 @@
+﻿@model IEnumerable<AgriculturalSupplyStore.ViewModels.HoaDonVM>
+@{
+    ViewData["Title"] = "Đơn hàng của bạn";
+}
+
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h5 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Chi Tiết Đơn Hàng</h5>
+        <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+            <li class="breadcrumb-items_first"><a>Trang Chủ</a></li>
+            <li class="breadcrumb-items active text-primary"><a>Đơn Hàng</a></li>
+            <li class="breadcrumb-items active text-primary"><a>Hóa Đơn</a></li>
+            <li class="breadcrumb-items active text-primary"><a>Chi Tiết Hóa Đơn</a></li>
+        </ol>
+    </div>
+</div>
+
+<div class="container mt-5 mb-5 bg-white p-4">
+    @foreach (var item in Model)
+    {
+        <!-- MÃ ĐƠN HÀNG và TRẠNG THÁI -->
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-end align-items-center">
+                <h5 class="mb-0 me-2">MÃ ĐƠN HÀNG:</h5>
+                <h5 class="mb-0 font-weight-bold me-3">@item.MaHd </h5>
+                <h5 class="mb-0 me-2">|</h5>
+                <h5 class="mb-0 text-warning">@item.TenTrangThai</h5>
+            </div>
+        </div>
+
+        <!-- Thông tin chính -->
+        <div class="row">
+            <!-- Phần bên trái -->
+            <div class="col-md-6">
+                <h5 class="fw-bold mb-3">Thông Tin Nhận Hàng</h5>
+                <p class="mb-1"><strong>Tên: </strong>@item.HoTen</p>
+                <p class="mb-1"><strong>Điện thoại: </strong>@item.DienThoai</p>
+                <p class="mb-1"><strong>Địa chỉ: </strong>@item.DiaChi</p>
+                <p class="mb-1"><strong>Ghi chú: </strong>@item.GhiChu</p>
+            </div>
+
+            <!-- Phần bên phải -->
+            <div class="col-md-6 text-end">
+                <h5 class="fw-bold mb-3">Chi Tiết Đơn Hàng</h5>
+                <p class="mb-1"><strong>Ngày đặt: </strong>@item.NgayDat.ToString("dd/MM/yyyy")</p>
+                <p class="mb-1"><strong>Cách thanh toán: </strong>@item.CachThanhToan</p>
+                <p class="mb-1"><strong>Phương thức vận chuyển: </strong>@item.CachVanChuyen</p>
+            </div>
+        </div>
+    }
+</div>

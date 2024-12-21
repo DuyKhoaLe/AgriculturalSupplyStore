@@ -5,10 +5,10 @@
 			@foreach (var item in Model)
 			{
 				<div class="col-12 col-md-4 col-lg-3 mb-2">
-					<a class="product-item" asp-controller="HangHoa" asp-action="Detail" asp-route-id="@item.MaHh">
+					<a class="product-item" asp-controller="HangHoa" asp-action="Detail" asp-route-mahh="@item.MaHh">
 						<img src="~/images/hanghoa_images/@item.Hinh" class="img-fluid product-thumbnail">
 						<h3 class="product-title">@item.TenHh</h3>
-						<strong class="product-price">@item.DonGia</strong>						
+						<strong class="product-price">@item.DonGia.ToString("#,##0.000")₫</strong>
 						<span class="icon-cross" asp-controller="GioHang" asp-action="AddToCart" asp-route-id="@item.MaHh">
 							<img src="~/images/cross.svg" class="img-fluid">
 						</span>

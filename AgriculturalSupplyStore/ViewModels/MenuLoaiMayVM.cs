@@ -6,6 +6,7 @@ namespace AgriculturalSupplyStore.ViewModels
 	{
         [Display(Name = "Mã loại máy")]
         [Required(ErrorMessage = "*")]
+        [MaxLength(50, ErrorMessage = "Tối đa 50 ký tự")]
         public string MaLoaiMay { get; set; }
 
         [Display(Name = "Tên loại máy")]

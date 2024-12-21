@@ -651,7 +651,9 @@ progress {
         max-width: 100%;
         padding-right: calc(var(--bs-gutter-x) * .5);
         padding-left: calc(var(--bs-gutter-x) * .5);
-        margin-top: var(--bs-gutter-y)
+        margin-top: var(--bs-gutter-y) ;
+        padding-top: 12px; 
+        padding-right: 12px;
     }
 
 .col {
@@ -1890,10 +1892,7 @@ progress {
     .table > thead {
         vertical-align: bottom
     }
-
-    .table > :not(:first-child) {
-        border-top: 2px solid currentColor
-    }
+ 
 
 .caption-top {
     caption-side: top

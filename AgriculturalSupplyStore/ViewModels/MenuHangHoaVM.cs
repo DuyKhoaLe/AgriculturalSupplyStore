@@ -48,7 +48,7 @@ namespace AgriculturalSupplyStore.ViewModels
         [Required(ErrorMessage = "*")]
         public int SoLuong { get; set; }
 
-        [Display(Name = "Mô tả ngắn")]
+        [Display(Name = "Chi tiết")]
         [Required(ErrorMessage = "*")]      
         public string? ChiTiet { get; set; }
 
