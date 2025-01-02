@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace AgriculturalSupplyStore.Controllers
 {
@@ -93,7 +94,7 @@ namespace AgriculturalSupplyStore.Controllers
                             var claims = new List<Claim>
                             {
                                 new Claim(ClaimTypes.Email, khachHang.Email),
-                                 new Claim(ClaimTypes.Name, khachHang.HoTen),
+                                 new Claim(ClaimTypes.Name, khachHang.HoTen),                              
                                   new Claim(MySetting.CLAIM_CUSTOMERID, khachHang.MaKh),
 
                                   new Claim(ClaimTypes.Role, "Customer")
@@ -274,6 +275,45 @@ namespace AgriculturalSupplyStore.Controllers
             };
             return View(result);
         }
+        //CreateGopY là gọi trang
+        [HttpGet]
+        public IActionResult CreateGopY(string HoTen, string Email)
+        {
+            ViewBag.HoTen = HoTen;
+            ViewBag.Email = Email;
+            return View();
+        }
 
+        //CreateGopY là tạo góp ý của khách hàng
+        [HttpPost]
+        public IActionResult CreateGopY (GopYVM model)
+        {
+           
+                if (ModelState.IsValid)
+                {      
+                var Gopy = _mapper.Map<GopY>(model);
+                model.MaGy = Guid.NewGuid().ToString();
+                 model.MaCd = Gopy.MaCd;                
+
+                    db.Gopies.Add(Gopy);
+                    db.SaveChanges();
+
+                    TempData["Message"] = $"Góp ý của bạn đã được gửi thành công! Chúng tôi sẽ phản hồi bạn sớm nhất.";
+                return RedirectToAction("FormFinnishSendMail");
+                }
+                else
+                {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                ViewBag.Errors = errors;
+
+                return View(model);
+                }           
+              
+        }
+
+        public IActionResult FormFinnishSendMail()
+        {
+            return View();
+        }
     }
 }

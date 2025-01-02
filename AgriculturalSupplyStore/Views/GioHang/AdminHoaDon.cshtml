@@ -52,22 +52,22 @@
                                         <td>@item.CachThanhToan</td>
                                         <td>@item.CachVanChuyen</td>
                                         <td>@item.NgayDat.ToString("dd/MM/yyyy")</td>
-                                        <td>
-                                            <span>@item.TenTrangThai</span>
-                                            <form asp-action="AdminUpdateTrangThai" method="post" style="display:inline;">
-                                                <input type="hidden" name="mahd" value="@item.MaHd" />
-                                                <button class="btn btn-sm btn-link text-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0;">
-                                                    <i class="fas fa-chevron-down"></i>
+                                        <td class="" style=" position: relative;">
+                                            <div class="d-flex align-items-center">
+                                                <span class="bg-warning text-dark p-2 bold-text" style="border:1px; border-radius:5px; border-color: black" id="status-name-@item.MaHd">@item.TenTrangThai</span>
+                                                <div class="dropdown" style=" position: relative;">
+                                                <button class="btn btn-sm btn-link text-primary dropdown-toggle" type="button" id="dropdownMenuButton-@item.MaHd" data-bs-toggle="dropdown" aria-expanded="false">                                                  
                                                 </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" >Chờ giao hàng</a></li>
-                                                    <li><a class="dropdown-item" >Đã thanh toán</a></li>
-                                                    <li><a class="dropdown-item">Đã giao hàng</a></li>
-                                                    <li><a class="dropdown-item" >Khách hàng hủy đơn hàng</a></li>
+                                                    <ul class="dropdown-menu" style=" position: absolute !important;" aria-labelledby="dropdownMenuButton-@item.MaHd">
+                                                    <li><a class="dropdown-item" onclick="updateStatus(@item.MaHd, 2, 'Chờ giao hàng')">Chờ giao hàng</a></li>
+                                                    <li><a class="dropdown-item" onclick="updateStatus(@item.MaHd, 1, 'Đã thanh toán')">Đã thanh toán</a></li>
+                                                    <li><a class="dropdown-item" onclick="updateStatus(@item.MaHd, 3, 'Đã giao hàng')">Đã giao hàng</a></li>
+                                                    <li><a class="dropdown-item" onclick="updateStatus(@item.MaHd, -1, 'Khách hàng hủy đơn hàng')">Khách hàng hủy đơn hàng</a></li>
                                                 </ul>
-                                                <input type="hidden" name="trangthai" value="@item.TenTrangThai" />
-                                            </form>
-                                        </td>                               
+                                            </div>
+                                            </div>
+                                        </td>
+
                                         <td class="d-flex justify-content-center align-items-center w-100 gap-2">
                                             <a asp-action="AdminDetailHoaDon" asp-route-mahd="@item.MaHd" class="btn btn-sm btn-primary" style="margin-right: 5px;">Xem</a>
                                             <form asp-action="AdminDeleteHoaDon" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa hóa đơn có mã @item.MaHd?');">
@@ -93,3 +93,26 @@
 </div>
 
 
+<script>
+    function updateStatus(maHd, maTrangThai, tenTrangThai) {
+        if (confirm('Bạn có chắc chắn muốn thay đổi trạng thái?')) {
+            $.ajax({
+                url: '/GioHang/UpdateTrangThai', 
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ maHd: maHd, maTrangThai: maTrangThai }),
+                success: function (response) {
+                    if (response.success) {
+                        document.getElementById(`status-name-${maHd}`).innerText = tenTrangThai;
+                        alert('Cập nhật trạng thái thành công!');
+                    } else {
+                        alert('Cập nhật trạng thái thất bại!');
+                    }
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi khi cập nhật trạng thái.');
+                }
+            });
+        }
+    }
+</script>

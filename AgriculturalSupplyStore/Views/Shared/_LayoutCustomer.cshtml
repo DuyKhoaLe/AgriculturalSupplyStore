@@ -35,8 +35,8 @@
 						<a class="nav-link" asp-controller="Home" asp-action="Index">Trang Chủ </a>
 					</li>
 					<li><a class="nav-link" >Giới Thiệu</a></li>
-					<li><a class="nav-link" asp-controller="HangHoa" action="" action="">Máy YANMAR</a></li>
-					<li><a class="nav-link">Máy KUBOTA</a></li>
+					<li><a class="nav-link" asp-controller="HangHoa" asp-action="ProductItem" asp-route-map="84335121">Máy YANMAR</a></li>
+					<li><a class="nav-link" asp-controller="HangHoa" asp-action="ProductItem" asp-route-map="84335122">Máy KUBOTA</a></li>
 					<li><a class="nav-link" asp-controller="HangHoa" asp-action="Index">Phụ Tùng</a></li>
 					<li><a class="nav-link" asp-controller="Home" asp-action="Contact">Liên Hệ</a></li>
 					<li><a class="nav-link" id="DaDangNhap" asp-controller="KhachHang" asp-action="Register"><img src="">Đăng Ký</a></li>
@@ -78,19 +78,20 @@
 					<div class="subscription-form">
 						<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Gửi lời nhấn cho cửa hàng</span></h3>
 
-						<form action="#" class="row g-3">
+						<form asp-controller="KhachHang" asp-action="CreateGopY" method="get" class="row g-3">
 							<div class="col-auto">
-								<input type="text" class="form-control" placeholder="Tên của bạn">
+								<input type="text" name="HoTen" class="form-control" placeholder="Tên của bạn" required>
 							</div>
 							<div class="col-auto">
-								<input type="email" class="form-control" placeholder="Email của bạn">
+								<input type="email" name="Email" class="form-control" placeholder="Email của bạn" required>
 							</div>
 							<div class="col-auto">
-								<button class="btn btn-primary">
+								<button type="submit" class="btn btn-primary">
 									<span class="fa fa-paper-plane"></span>
 								</button>
 							</div>
 						</form>
+
 
 					</div>
 				</div>

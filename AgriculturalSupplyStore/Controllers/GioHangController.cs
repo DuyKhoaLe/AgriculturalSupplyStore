@@ -177,6 +177,20 @@ namespace AgriculturalSupplyStore.Controllers
             return View(data);
         }
 
+        ///UpdateTrangThai là cập nhập trạng thái đơn hàng
+        [HttpPost]
+        public JsonResult UpdateTrangThai([FromBody] UpdateTrangThaiVM model)
+        {
+            var hoaDon = db.HoaDons.FirstOrDefault(hd => hd.MaHd == model.MaHd);
+            if (hoaDon != null)
+            {
+                hoaDon.MaTrangThai = model.MaTrangThai;
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }       
+
 
         ///CustomerHoaDon là trang hiển thị thông tin các đơn hàng, tên khách hàng, địa chỉ
         public IActionResult CustomerHoaDon(int mahd)

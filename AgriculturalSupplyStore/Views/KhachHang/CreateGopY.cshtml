@@ -1,0 +1,70 @@
+﻿@model AgriculturalSupplyStore.ViewModels.GopYVM
+@{
+    ViewData["Title"] = "Góp Ý Của Khách Hàng";
+}
+
+<div class="">
+    <div class="container-fluid py-5 d-flex align-items-center justify-content-center vh-100">
+        <div class="col-md-6 mb-5 mb-md-0">
+            <h2 class="h3 mb-3 text-black text-center">Trang Góp Ý</h2>
+            <form asp-action="CreateGopY"  enctype="multipart/form-data">
+                <div class="p-3 p-lg-5 border bg-white">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label asp-for="@Model.MaGy"></label>
+                            <input asp-for="@Model.MaGy" type="text" class="form-control" name="MaGy">
+                            <span asp-validation-for="@Model.MaGy" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label asp-for="@Model.HoTen" ></label>
+                            <input asp-for="@Model.HoTen" type="text" class="form-control" name="HoTen" value="@ViewBag.HoTen" required>
+                            <span asp-validation-for="@Model.HoTen" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label asp-for="@Model.Email" ></label>
+                            <input asp-for="@Model.Email" type="email" class="form-control" name="Email" value="@ViewBag.Email" required>
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label asp-for="@Model.DienThoai"></label>
+                            <input asp-for="@Model.DienThoai" type="number" class="form-control" id="Email" name="DienThoai" >
+                            <span asp-validation-for="@Model.DienThoai" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">                                                     
+                            <div class="form-group">
+                                <label asp-for="@Model.MaCd"></label>
+                                <select class="form-control " asp-for="@Model.MaCd">
+                                    <option value="0">Chọn chủ đề </option>
+                                    <option value="1">Máy Gặt</option>
+                                    <option value="2">Máy Kéo</option>                                    
+                                    <option value="3">Máy Cấy Lúa</option>
+                                    <option value="4">Phụ Tùng</option>
+                                    <option value="5">Dầu Nhớt</option>
+                                </select>
+                                <span asp-validation-for="@Model.MaCd" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label asp-for="@Model.NoiDung" class="text-black"></label>
+                            <input asp-for="@Model.NoiDung" class="form-control" >
+                            <span asp-validation-for="@Model.NoiDung" class="text-danger"></span>
+                        </div>
+                    </div>                                    
+                    <div class="form-group mt-2 d-flex align-items-center justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-lg py-3 btn-block">Gửi Góp Ý</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

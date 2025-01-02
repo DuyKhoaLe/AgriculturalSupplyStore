@@ -389,9 +389,37 @@ namespace AgriculturalSupplyStore.Controllers
             var hangHoas = db.HangHoas.AsQueryable();
             if (query != null)
             {
-                hangHoas = hangHoas.Where(p => p.TenHh.Contains(query));
+                hangHoas = hangHoas.Where(p => p.TenHh.Contains(query));                
             }
-            ViewBag.NameSearch = query;
+           
+
+            var result = hangHoas.Select(p => new MenuHangHoaVM
+            {
+                MaHh = p.MaHh,
+                TenHh = p.TenHh,
+                TenAlias = p.TenAlias,
+                MaPhan = p.MaPhan,
+                MoTaNgan = p.MoTaDonVi,
+                DonGia = p.DonGia,
+                Hinh = p.Hinh,
+                NgaySx = p.NgaySx,
+                GiamGia = p.GiamGia,
+                SoLanXem = p.SoLanXem,
+                ChiTiet = p.MoTa,
+                MaNcc = p.MaNcc
+            });
+            return View(result);
+        }
+
+        // Trang sản phẩm
+        public IActionResult ProductItem(string? map)
+        {
+            var hangHoas = db.HangHoas.AsQueryable();
+            if (map != null)
+            {
+                hangHoas = hangHoas.Where(p => p.MaPhan == map);
+            }
+            ViewBag.NameSearch = map;
 
             var result = hangHoas.Select(p => new MenuHangHoaVM
             {

@@ -16,6 +16,7 @@ namespace AgriculturalSupplyStore.Helpers
             CreateMap<MenuKieuMayVM, KieuMay>();
             CreateMap<MenuBoPhanVM, BoPhan>();
             CreateMap<MenuPhanVM, Phan>();
+            CreateMap<GopYVM, GopY>();
             //.ForMember(kh => kh.HoTen, option => option.MapFrom(RegisterVM => RegisterVM.HoTen))
             //.ReverseMap();
         }

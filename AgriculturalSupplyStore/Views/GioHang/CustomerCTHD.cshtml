@@ -16,7 +16,7 @@
 <d  iv class="container mt-5 mb-5">
     @foreach (var item in Model)
     {
-        <div class="container ">
+        <div class="container mb-5">
             <div class="bg-white border-info-bill">
                 @await Component.InvokeAsync("TrangThai", new { matrangthai = item.MaTrangThai })
                 <a asp-action="CustomerHoaDon" asp-route-mahd="@item.MaHd" class="text-decoration-none text-dark">
